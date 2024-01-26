@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
+	@*@Styles.Render("~/Content/css")
+		@Scripts.Render("~/bundles/modernizr")*@
+	<script src="https://unpkg.com/&#64tabler/core@1.0.0-beta3/dist/js/tabler.min.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/&#64tabler/core@1.0.0-beta3/dist/css/tabler.min.css">
+	<link rel="stylesheet" href="https://unpkg.com/&#64@tabler/core@1.0.0-beta3/dist/css/tabler-flags.min.css">
+	<link rel="stylesheet" href="https://unpkg.com/&#64tabler/core@1.0.0-beta3/dist/css/tabler-payments.min.css">
+	<link rel="stylesheet" href="https://unpkg.com/&#64tabler/core@1.0.0-beta3/dist/css/tabler-vendors.min.css">
+</head>
+<body>
+	<div class="page">
+		<!-- Sidebar -->
+		<aside class="navbar navbar-vertical navbar-expand-sm navbar-dark">
+			<div class="container-fluid">
+				<button class="navbar-toggler" type="button">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<h1 class="navbar-brand navbar-brand-autodark">
+					<a href="href=" @Url.Action("Index", "Home") "">
+						<!-- <img src="https://preview.tabler.io/static/logo-white.svg" width="110" height="32" alt="Tabler"
+						  class="navbar-brand-image"> -->
+						<h1 class="navbar-brand-text fw-bold">TravelPlatform</h1>
+					</a>
+				</h1>
+				<div class="collapse navbar-collapse" id="sidebar-menu">
+					<ul class="navbar-nav pt-lg-3">
+						<li class="nav-item">
+							<a class="nav-link" href="@Url.Action("Index", "Home")">
+								<span class="nav-link-title">
+									首頁
+								</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="@Url.Action("About", "Home")">
+								<span class="nav-link-title">
+									關於
+								</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="@Url.Action("Contact", "Home")">
+								<span class="nav-link-title">
+									連絡人
+								</span>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link" href="#連結放這裡( 用這個-@Url.Action("Contact", "Home"))">
+								<span class="nav-link-title">
+									Link 3
+								</span>
+							</a>
+						</li>
+
+						<li class="nav-item dropdown">
+							<a href="#" class=" nav-link dropdown-toggle" data-bs-toggle="dropdown">管理員</a>
+							<div class="dropdown-menu ">
+								<a class="dropdown-item" href="@Url.Action("Index", "Admins")">管理員首頁</a>
+								<a class="dropdown-item" href="#">新增管理員</a>
+								<a class="dropdown-item" href="#">設定管理員角色</a>
+								<a class="dropdown-item" href="#">新增角色</a>
+								<a class="dropdown-item" href="#">設定角色權限</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</aside>
+		<header class="navbar navbar-expand-sm navbar-light d-print-none">
+			<div class="container-xl">
+				<h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
+					<a href="href=" @Url.Action("Index", "Home") "">
+						<!-- <img src="https://preview.tabler.io/static/logo.svg" width="110" height="32" alt="Tabler"
+						  class="navbar-brand-image" /> -->
+						<h1 class="navbar-brand-text fw-bold">TravelPlatform</h1>
+					</a>
+				</h1>
+
+				<div class="navbar-nav flex-row order-md-last">
+					<div class="nav-item">
+						<a href="#" class="nav-link d-flex lh-1 text-reset p-0">
+							<span class="avatar avatar-sm" style="background-image: url(/samples/avatars/002m.jpg)"></span>
+							<div class="d-none d-xl-block ps-2">
+								<div>管理員帳號</div>
+								<div class="mt-1 small text-secondary">管理員姓名</div>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</header>
+		<div class="page-wrapper">
+			<div class="page-body">
+				<div class="container-xl">
+					@RenderBody()
+					<hr />
+					<footer>
+						<p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
+					</footer>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	@*@Scripts.Render("~/bundles/jquery")
+		@Scripts.Render("~/bundles/bootstrap")*@
+	@RenderSection("scripts", required: false)
+</body>
+</html>
