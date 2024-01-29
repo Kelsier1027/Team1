@@ -14,8 +14,8 @@ namespace Team1.Models.DTO
         public string SortBy { get; set; }
         public string SortDirection { get; set; }
         //分頁
-        public int Page { get; set; }
-        public int PageSize { get; set; }
+        public int? Page { get; set; }
+        public int? PageSize { get; set; }
         
 
 
