@@ -7,9 +7,9 @@ using Team1.Models.EFModel;
 
 namespace Team1.Models.DTO
 {
-    public class AttractionPagingDTO
-    {
+    public class AttractionPagingDTO { 
+    
         public int TotalPages {  get; set; }
-        public List<Attraction> AttractionsResult {  get; set; }
+        public List<AttractionDTO> Attractions { get; set; }    
     }
 }

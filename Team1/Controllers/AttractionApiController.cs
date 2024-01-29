@@ -6,15 +6,18 @@ using System.Web.Http;
 using System.Web.Mvc;
 using Team1.Models.DTO;
 using Team1.Models.EFModel;
-
+using HttpGetAttribute = System.Web.Mvc.HttpGetAttribute;
 using HttpPostAttribute = System.Web.Http.HttpPostAttribute;
+using RouteAttribute = System.Web.Http.RouteAttribute;
 
 namespace Team1.Controllers
 {
-    public class AttractionApiController : Controller
+    public class AttractionApiController : ApiController
     {
+
         [HttpPost]
-        public  ActionResult DisplayAttraction([FromBody] AttractionSearchDTO _search)
+        [Route("api/AttractionApi/DisplayAttraction")]
+        public IHttpActionResult DisplayAttraction([FromBody] AttractionSearchDTO _search)
         {
             var db = new AppDbContext();
             var attractions = _search.CategoryId == 0 ? db.Attractions : db.Attractions.Where(a => a.Id == _search.CategoryId);
@@ -40,14 +43,32 @@ namespace Team1.Controllers
             int totalPage = (int)Math.Ceiling((decimal)totalCount / pageSize);
             int page = _search.Page ?? 1;
 
-            attractions= attractions.Skip((page - 1) * pageSize).Take(pageSize);
+            var attractionsDto= attractions.Select(a=> new AttractionDTO
+            {
+                Id=a.Id,
+                Name=a.Name,    
+                Address=a.Address,  
+                Category=a.AttractionCategory.Name, 
+                City=a.City.Name,   
+                Description=a.Description,  
+                CoverImage=a.MainImage,
+            }).Skip((page - 1) * pageSize).Take(pageSize);
 
-            var attractionpageing = new AttractionPagingDTO();
+            AttractionPagingDTO attractionpageing = new AttractionPagingDTO();
             attractionpageing.TotalPages = totalPage;
-            attractionpageing.AttractionsResult=attractions.ToList();
+            attractionpageing.Attractions = attractionsDto.ToList();    
+            
 
             return Json(attractionpageing);        
         }
 
+
+        [Route("api/AttractionApi/GetCategory")]
+        public IHttpActionResult GetCategory()
+        {
+            var db = new AppDbContext();
+            var categories = db.AttractionCategories.Select(c => new { c.Id, c.Name }).ToList();
+            return Json(categories);
+        }
     }
 }
