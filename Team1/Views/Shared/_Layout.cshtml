@@ -21,11 +21,13 @@
 				<button class="navbar-toggler" type="button">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-				<h1 class="navbar-brand navbar-brand-autodark">
-					<a href="href=" @Url.Action("Index", "Home") "">
+				<h1 class="navbar-brand navbar-brand-autodark navbar-brand-text fw-bold">
+					TravelPlatform
+					<a href="@Url.Action("Index", "Home")" class="">
 						<!-- <img src="https://preview.tabler.io/static/logo-white.svg" width="110" height="32" alt="Tabler"
-						  class="navbar-brand-image"> -->
-						<h1 class="navbar-brand-text fw-bold">TravelPlatform</h1>
+		class="navbar-brand-image"> -->
+						@*<h1 class="navbar-brand-text fw-bold">TravelPlatform</h1>*@
+
 					</a>
 				</h1>
 				<div class="collapse navbar-collapse" id="sidebar-menu">
@@ -63,8 +65,8 @@
 						<li class="nav-item dropdown">
 							<a href="#" class=" nav-link dropdown-toggle" data-bs-toggle="dropdown">管理員</a>
 							<div class="dropdown-menu ">
-								<a class="dropdown-item" href="@Url.Action("Index", "Admins")">管理員首頁</a>
-								<a class="dropdown-item" href="#">新增管理員</a>
+								<a class="dropdown-item" href="@Url.Action("Index", "BEAdmins")">管理員首頁</a>
+								<a class="dropdown-item" href="@Url.Action("Create", "BEAdmins")">新增管理員</a>
 								<a class="dropdown-item" href="#">設定管理員角色</a>
 								<a class="dropdown-item" href="#">新增角色</a>
 								<a class="dropdown-item" href="#">設定角色權限</a>
@@ -76,11 +78,13 @@
 		</aside>
 		<header class="navbar navbar-expand-sm navbar-light d-print-none">
 			<div class="container-xl">
-				<h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-					<a href="href=" @Url.Action("Index", "Home") "">
+				<h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3 navbar-brand-text fw-bold">
+					TravelPlatform
+					<a href="@Url.Action("Index", "Home")" class="">
 						<!-- <img src="https://preview.tabler.io/static/logo.svg" width="110" height="32" alt="Tabler"
-						  class="navbar-brand-image" /> -->
-						<h1 class="navbar-brand-text fw-bold">TravelPlatform</h1>
+		class="navbar-brand-image" /> -->
+						@*<h1 class="navbar-brand-text fw-bold">TravelPlatform</h1>*@
+
 					</a>
 				</h1>
 
