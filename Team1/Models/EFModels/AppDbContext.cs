@@ -142,10 +142,6 @@ namespace Team1.Models.EFModels
 				.IsUnicode(false);
 
 			modelBuilder.Entity<BEAdmin>()
-				.Property(e => e.Salt)
-				.IsUnicode(false);
-
-			modelBuilder.Entity<BEAdmin>()
 				.HasMany(e => e.AdminRoles)
 				.WithRequired(e => e.BEAdmin)
 				.HasForeignKey(e => e.AdminId);

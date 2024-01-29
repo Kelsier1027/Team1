@@ -26,8 +26,8 @@ namespace Team1.Models.EFModels
         public string EncryptedPassword { get; set; }
 
         [Required]
-		[StringLength(256)]
-		public string Email { get; set; }
+        [StringLength(256)]
+        public string Email { get; set; }
 
         [Required]
         [StringLength(40)]
@@ -36,9 +36,6 @@ namespace Team1.Models.EFModels
         public DateTime RegistrationDate { get; set; }
 
         public bool ActiveStatus { get; set; }
-
-        [Required]
-        public string Salt { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AdminRole> AdminRoles { get; set; }
