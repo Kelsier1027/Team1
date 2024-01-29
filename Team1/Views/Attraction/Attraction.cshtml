@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "Attraction";
+}
+<div>
+    <div class="row row-cols-1 row-cols-md-3 g-4" id="attractions"></div>
+</div>
+
+
+
+
+
+
+@section Scripts{
+    <script>
+        const divAttractions = document.querySelector('#attractions');
+        const searchData = {
+            "Keyword":"",
+            "CategoryId": 0,
+            "SortBy":"",
+            "SortDirection":"",
+            "Page":1,   
+            "PageSize":12,
+        }
+        const sortOption = {
+            "AttractionName":"名稱",
+            "AttractionId": "編號",
+        }
+        const loadAttraction = async () => {
+            const response = await fetch('@Url.Content("~/attractionapi/displayattraction")', {
+                'method': 'POST',
+                'body': JSON.stringify(searchData),
+                'headers': {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const datas = await response.json();
+            console.log(datas);
+            const cardAttractions = datas.AttractionsResult.map(attraction => {
+                const { Name, Address, AttractionCategoryId, CityId, Description, MainImage } = attraction;
+                return (
+                    `
+                <div class="card" style="width: 18rem;">
+                  <img src="/xx/xx" class="card-img-top" alt="Oops">
+                  <div class="card-body">
+                    <h5 class="card-title">${Name}</h5>
+                    <p class="card-text">${Description}</p>
+                  </div>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">${CityId}</li>
+                    <li class="list-group-item">>${Address}</li>
+                    <li class="list-group-item">A third item</li>
+                  </ul>
+                  <div class="card-body">
+                    <a href="#" class="card-link">Edit?</a>
+                    <a href="#" class="card-link">Delete?</a>
+                  </div>
+                </div>
+                    `
+                );
+            });
+            divAttractions.innerHTML = cardAttractions.join("");
+
+        }
+        loadAttraction();
+
+
+
+
+        </script>
+
+    }

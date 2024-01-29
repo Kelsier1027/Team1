@@ -5,14 +5,16 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using Team1.Models.DTO;
-using Team1.Models.EFModels;
+using Team1.Models.EFModel;
+
+using HttpPostAttribute = System.Web.Http.HttpPostAttribute;
 
 namespace Team1.Controllers
 {
     public class AttractionApiController : Controller
     {
-        // GET: AttractionApi
-        public ActionResult DisplayAttraction([FromBody] SearchDTO _search)
+        [HttpPost]
+        public  ActionResult DisplayAttraction([FromBody] AttractionSearchDTO _search)
         {
             var db = new AppDbContext();
             var attractions = _search.CategoryId == 0 ? db.Attractions : db.Attractions.Where(a => a.Id == _search.CategoryId);
@@ -28,7 +30,10 @@ namespace Team1.Controllers
                     break;
                 case "AttractionId":
                     attractions = _search.SortDirection == "ASC" ? attractions.OrderBy(a => a.Id) : attractions.OrderByDescending(a => a.Id);
-                    break;              
+                    break;
+                default:
+                    attractions = _search.SortDirection == "ASC" ? attractions.OrderBy(a => a.Id) : attractions.OrderBy(a => a.Id);
+                    break;
             }
             int totalCount = attractions.Count();
             int pageSize = _search.PageSize ?? 12;  //如果沒有給值，就給預設12
@@ -37,8 +42,11 @@ namespace Team1.Controllers
 
             attractions= attractions.Skip((page - 1) * pageSize).Take(pageSize);
 
+            var attractionpageing = new AttractionPagingDTO();
+            attractionpageing.TotalPages = totalPage;
+            attractionpageing.AttractionsResult=attractions.ToList();
 
-           
+            return Json(attractionpageing);        
         }
 
     }
