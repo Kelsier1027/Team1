@@ -19,6 +19,7 @@ namespace Team1.Models
 
         [Required]
         [StringLength(20)]
+        [Display(Name = "¶º©±¦WºÙ")]
         public string Name { get; set; }
 
         public int DistrictId { get; set; }
