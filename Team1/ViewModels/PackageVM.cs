@@ -48,7 +48,8 @@ namespace Team1.ViewModels
         [Key]
         [Display(Name = "產品編號")]
         public int Id { get; set; }
-
+        [Required]
+        [StringLength(50)]
         [Display(Name = "產品名稱")]
         public string Name { get; set; }
         [Display(Name = "價格")]
@@ -67,14 +68,14 @@ namespace Team1.ViewModels
         public int CanSold { get; set; }
         [Display(Name = "總數")]
         public int TotalNum { get; set; }
-
         [Display(Name = "圖片")]
         public string Image { get; set; }
-
+ 
         [Display(Name = "描述")]
         public string Description { get; set; }
 
         [Display(Name = "注意事項")]
+
         public string Alert { get; set; }
 
         [Display(Name = "費用說明")]

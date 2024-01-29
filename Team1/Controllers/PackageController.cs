@@ -100,21 +100,6 @@ namespace Team1.Controllers
             return View(packageVM);
         }
 
-        // GET: Package/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            PackageVM packageVM = db.PackageVMs.Find(id);
-            if (packageVM == null)
-            {
-                return HttpNotFound();
-            }
-            return View(packageVM);
-        }
-
         // POST: Package/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
