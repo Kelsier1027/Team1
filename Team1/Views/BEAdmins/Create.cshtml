@@ -14,6 +14,9 @@
 <div class="form-horizontal">
 	<h4>BEAdmin</h4>
 	<hr />
+	<div class="text-danger justify-content-center align-items-center d-flex">
+		@ViewBag.ErrorMessage 
+	</div>
 	@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 	<div class="form-group">
 		@Html.LabelFor(model => model.Account, htmlAttributes: new { @class = "control-label col-md-2" })

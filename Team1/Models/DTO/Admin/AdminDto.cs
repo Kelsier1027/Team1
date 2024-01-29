@@ -26,6 +26,6 @@ namespace Team1.Models.DTO.Admin
 
 		public bool ActiveStatus { get; set; }
 
-		public string Salt { get; set; }
+		public string VerificationCode { get; set; }
 	}
 }

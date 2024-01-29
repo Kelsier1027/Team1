@@ -8,7 +8,7 @@ namespace Team1.Models.ViewModels.Admin
 {
 	public class CreateAdminVm
 	{
-		public int Id { get; set; }
+		
 
 		[Required]
 		[Display(Name = "帳號")]
@@ -19,7 +19,7 @@ namespace Team1.Models.ViewModels.Admin
 
 		[Required]
 		[StringLength(20, MinimumLength = 6, ErrorMessage = "密碼長度必須在6到20個字符之間")]
-		[RegularExpression(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,20}$", ErrorMessage = "密碼必須包含至少一個英文字母和一個數字")]
+		[RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$", ErrorMessage = "密碼必須包含至少一個大寫英文字母、一個小寫英文字母和一個數字")]
 		[Display(Name = "密碼")]
 		[DataType(DataType.Password)]
 		public string Password { get; set; }

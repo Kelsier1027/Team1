@@ -1,0 +1,45 @@
+﻿@model Team1.Models.ViewModels.Admin.NewAdminVm
+
+@{
+    ViewBag.Title = "CreateSuccess";
+}
+
+<h2>CreateSuccess</h2>
+
+<div>
+	<h4>NewAdminVm</h4>
+	<hr />
+	<div class="text-danger justify-content-center align-items-center d-flex">
+		@ViewBag.ErrorMessage
+	</div>
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayNameFor(model => model.Account)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Account)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.Name)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Name)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.Email)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Email)
+		</dd>
+
+	</dl>
+</div>
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |*@
+    @Html.ActionLink("Back to List", "Index")
+</p>

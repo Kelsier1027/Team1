@@ -10,7 +10,7 @@ namespace Team1.Models.Core.Entities.Admin
 {
 	public class AdminEntity
 	{
-		public AdminEntity(int id, string account, string encryptedPassword, string email, string name, DateTime registrationDate, bool activeStatus, string salt)
+		public AdminEntity(int id, string account, string encryptedPassword, string email, string name, DateTime registrationDate, bool activeStatus,string verificationCode)
 		{
 			Id = id;
 			Account = account;
@@ -19,7 +19,7 @@ namespace Team1.Models.Core.Entities.Admin
 			Name = name;
 			RegistrationDate = registrationDate;
 			ActiveStatus = activeStatus;
-			Salt = salt;
+			VerificationCode = verificationCode;
 		}
 
 		public int Id { get; set; }
@@ -43,9 +43,7 @@ namespace Team1.Models.Core.Entities.Admin
 
 		public bool ActiveStatus { get; set; }
 
-		[Required]
-		public string Salt { get; set; }
-
+		public string VerificationCode { get; set; }
 	}
 
 }

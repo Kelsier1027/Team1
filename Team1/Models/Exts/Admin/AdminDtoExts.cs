@@ -20,7 +20,7 @@ namespace Team1.Models.Exts.Admin
 				dto.Name,
 				dto.RegistrationDate,
 				dto.ActiveStatus,
-				dto.Salt
+				dto.VerificationCode
 			);
 		}
 		public static NewAdminVm ToNewAdminVm(this AdminDto dto)

@@ -16,7 +16,8 @@ namespace Team1.Models.Exts.Admin
 				Account = vm.Account,
 				Email = vm.Email,
 				Name = vm.Name,
-				Password = vm.Password
+				Password = vm.Password,
+				ConfirmPassword = vm.ConfirmPassword
 			};
 		}
 	}

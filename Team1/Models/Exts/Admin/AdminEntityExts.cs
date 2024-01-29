@@ -21,7 +21,7 @@ namespace Team1.Models.Exts.Admin
 				Name = en.Name,
 				RegistrationDate = en.RegistrationDate,
 				ActiveStatus = en.ActiveStatus,
-				Salt = en.Salt
+				VerificationCode = en.VerificationCode
 			};
 		}
 
@@ -36,7 +36,7 @@ namespace Team1.Models.Exts.Admin
 				Name = en.Name,
 				RegistrationDate = en.RegistrationDate,
 				ActiveStatus = en.ActiveStatus,
-				Salt = en.Salt
+				VerificationCode = en.VerificationCode
 			};
 		}
 	}
