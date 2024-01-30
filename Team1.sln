@@ -5,6 +5,11 @@ VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Team1", "Team1\Team1.csproj", "{441E7183-10ED-49FF-9EFF-7A36CAAA5896}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00方案項目", "00方案項目", "{BC21FB2C-D43F-46C4-A3E1-A37105082A29}"
+	ProjectSection(SolutionItems) = preProject
+		YEN-ReadMe.txt = YEN-ReadMe.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -1,0 +1,6 @@
+﻿from:g01.webapp@gmail.com
+							to:1@1
+							subject:[電子信箱驗證信]
+							Hi 111,
+			<br/>
+			請點擊此連結 [<a href='https://localhost:44389/BEAdmins/ConfirmEmail?adminId=7&verificationCode=93e6aa91-6d23-4634-b7de-ca62b27dd6a4' target='_blank'>驗證電子信箱</a>], 以驗證電子信箱, 如果您沒有提出申請, 請忽略本信, 謝謝

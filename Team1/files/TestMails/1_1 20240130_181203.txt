@@ -1,0 +1,6 @@
+﻿from:g01.webapp@gmail.com
+							to:1@1
+							subject:[重設密碼通知]
+							Hi 111,
+<br />
+請點擊此連結 [<a href='https://localhost:44389/BEAdmins/ResetPassword?adminId=7&confirmCode=b5605e6bfd6f4c1e8f379edec9a4ef20' target='_blank'>重設密碼</a>], 以進行重設密碼, 如果您沒有提出申請, 請忽略本信, 謝謝
