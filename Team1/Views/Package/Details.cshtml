@@ -1,0 +1,106 @@
+﻿@model Team1.ViewModels.PackageVM
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PackageVM</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LowestGo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LowestGo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplyEndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApplyEndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplyBeginDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApplyBeginDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CanSold)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CanSold)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Alert)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Alert)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PriceDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriceDescription)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

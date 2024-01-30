@@ -142,6 +142,7 @@
     <Compile Include="Controllers\AttractionApiController.cs" />
     <Compile Include="Controllers\AttractionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PackageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -205,6 +206,8 @@
     <Compile Include="Models\EFModel\ServiceCategory.cs" />
     <Compile Include="Models\ViewModel\AttractionVm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scripts\PackgeService.cs" />
+    <Compile Include="ViewModels\PackageVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AttractionImage\nodatafound.png" />
@@ -263,10 +266,15 @@
     <Content Include="Views\Attraction\Attraction.cshtml" />
     <Content Include="Views\Attraction\AttractionList.cshtml" />
     <Content Include="Views\Attraction\Create.cshtml" />
+    <Content Include="Views\Package\Create.cshtml" />
+    <Content Include="Views\Package\Delete.cshtml" />
+    <Content Include="Views\Package\Details.cshtml" />
+    <Content Include="Views\Package\Edit.cshtml" />
+    <Content Include="Views\Package\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
