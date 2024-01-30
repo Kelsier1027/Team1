@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
 
-namespace Team1.Models.EFModels
+namespace Team1.Models
 {
 	public partial class AppDbContext : DbContext
 	{
@@ -140,6 +140,10 @@ namespace Team1.Models.EFModels
 			modelBuilder.Entity<BEAdmin>()
 				.Property(e => e.Email)
 				.IsUnicode(false);
+
+			modelBuilder.Entity<BEAdmin>()
+				.Property(e => e.VerificationCode)
+				.IsFixedLength();
 
 			modelBuilder.Entity<BEAdmin>()
 				.HasMany(e => e.AdminRoles)

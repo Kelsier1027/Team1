@@ -20,7 +20,8 @@ namespace Team1.Models.Exts.Admin
 				model.Email,
 				model.Name,
 				model.RegistrationDate,
-				model.ActiveStatus
+				model.ActiveStatus,
+				model.VerificationCode
 																																							);
 		}
 	}

@@ -1,4 +1,4 @@
-namespace Team1.Models.EFModels
+namespace Team1.Models
 {
     using System;
     using System.Collections.Generic;
@@ -36,6 +36,9 @@ namespace Team1.Models.EFModels
         public DateTime RegistrationDate { get; set; }
 
         public bool ActiveStatus { get; set; }
+
+        [StringLength(36)]
+        public string VerificationCode { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AdminRole> AdminRoles { get; set; }
