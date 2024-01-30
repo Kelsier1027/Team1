@@ -170,6 +170,10 @@
     <Compile Include="InterFace\IRepositories\Member\IMemberRepository.cs" />
     <Compile Include="Models\Core\Entities\Admin\AdminEntity.cs" />
     <Compile Include="Models\DTO\Admin\AdminDto.cs" />
+    <Compile Include="Models\DTO\AttractionDTO.cs" />
+    <Compile Include="Models\DTO\AttractionPagingDTO.cs" />
+    <Compile Include="Models\DTO\AttractionSearchDTO.cs" />
+    <Compile Include="Models\DTO\AttractionTicketDTO.cs" />
     <Compile Include="Models\DTO\Member\DiscountsForEachLevelDto.cs" />
     <Compile Include="Models\DTO\Member\MemberDto.cs" />
     <Compile Include="Models\DTO\Member\MemberPersonalInfoDto.cs" />
@@ -246,6 +250,7 @@
     <Compile Include="Models\ViewModels\Admin\EditAdminProfileVm.cs" />
     <Compile Include="Models\ViewModels\Admin\NewAdminVm.cs" />
     <Compile Include="Models\ViewModels\Member\RegisterVm.cs" />
+    <Compile Include="Models\ViewModels\AttractionVm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scripts\PackgeService.cs" />
     <Compile Include="ViewModels\PackageVM.cs" />
@@ -334,7 +339,7 @@
     <Folder Include="files\TestMails\" />
     <Folder Include="InterFace\IServices\" />
     <Folder Include="Models\Core\Entities\Member\" />
-    <Folder Include="Services\" />
+    <Folder Include="Models\ViewModel\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

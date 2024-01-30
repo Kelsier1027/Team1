@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using Team1.Models.DTO;
-using Team1.Models.EFModel;
+using Team1.Models.EFModels;
 using HttpGetAttribute = System.Web.Mvc.HttpGetAttribute;
 using HttpPostAttribute = System.Web.Http.HttpPostAttribute;
 using RouteAttribute = System.Web.Http.RouteAttribute;
