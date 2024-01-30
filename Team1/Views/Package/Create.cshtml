@@ -48,112 +48,110 @@
 {
 	@Html.AntiForgeryToken()
 
-	<div class="form-horizontal">
-		<hr />
-		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-		<div class="form-group">
-			@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-			</div>
-		</div>
-
-		<div class="form-group">
-			@Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0" } })
-				@Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
-			</div>
-		</div>
-
-		<div class="form-group">
-			@Html.LabelFor(model => model.LowestGo, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.EditorFor(model => model.LowestGo, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "1" } })
-				@Html.ValidationMessageFor(model => model.LowestGo, "", new { @class = "text-danger" })
-			</div>
-		</div>
-
-		<div class="form-group">
-			@Html.LabelFor(model => model.ApplyEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.EditorFor(model => model.ApplyEndDate, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.ApplyEndDate, "", new { @class = "text-danger" })
-			</div>
-		</div>
-
-		<div class="form-group">
-			@Html.LabelFor(model => model.ApplyBeginDate, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.EditorFor(model => model.ApplyBeginDate, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.ApplyBeginDate, "", new { @class = "text-danger" })
-			</div>
-		</div>
-
-		<div class="form-group">
-			@Html.LabelFor(model => model.CanSold, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.EditorFor(model => model.CanSold, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "1" } })
-				@Html.ValidationMessageFor(model => model.CanSold, "", new { @class = "text-danger" })
-			</div>
-		</div>
-
-		<div class="form-group">
-			@Html.LabelFor(model => model.TotalNum, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.EditorFor(model => model.TotalNum, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "1" } })
-				@Html.ValidationMessageFor(model => model.TotalNum, "", new { @class = "text-danger" })
-			</div>
-		</div>
-
-		<div class="form-group">
-			@Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@*@Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })*@
-				<input type="file" name="ImageFile" id="ImageFile" onchange="validateFileAndPreview();" />
-				@Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
-			</div>
-		</div>
-		<div class="form-group">
-			<img id="imagePreview" alt="Image Preview" />
-		</div>
-		<div class="form-group">
-			@Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@*@Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })*@
-				<input type="file" name="DescriptionFile" id="DescriptionFile" onchange="validateFile();" />
-				@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-			</div>
-		</div>
-
-		<div class="form-group">
-			@Html.LabelFor(model => model.Alert, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@*@Html.EditorFor(model => model.Alert, new { htmlAttributes = new { @class = "form-control" } })*@
-				<input type="file" name="AlertFile" id="AlertFile" onchange="validateFile();" />
-				@Html.ValidationMessageFor(model => model.Alert, "", new { @class = "text-danger" })
-			</div>
-		</div>
-
-		<div class="form-group">
-			@Html.LabelFor(model => model.PriceDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@*@Html.EditorFor(model => model.PriceDescription, new { htmlAttributes = new { @class = "form-control" } })*@
-				<input type="file" name="PriceDescriptionFile" id="PriceDescriptionFile" onchange="validateFile();" />
-				@Html.ValidationMessageFor(model => model.PriceDescription, "", new { @class = "text-danger" })
-			</div>
-		</div>
-
-		<div class="col-md-6">
-			<button type="submit" class="btn btn-primary">
-				<i class="fas fa-save"></i> 存檔
-			</button>
-			<a href="@Url.Action("Index")" class="btn btn-dark">
-				<i class="fas fa-arrow-circle-left"></i> 返回
-			</a>
+<div class="form-horizontal">
+	<hr />
+	@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+	<div class="form-group">
+		@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+			@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
 		</div>
 	</div>
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0" } })
+			@Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+		</div>
+	</div>
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.LowestGo, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.EditorFor(model => model.LowestGo, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "1" } })
+			@Html.ValidationMessageFor(model => model.LowestGo, "", new { @class = "text-danger" })
+		</div>
+	</div>
+	<div class="form-group">
+		@Html.LabelFor(model => model.ApplyBeginDate, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.EditorFor(model => model.ApplyBeginDate, new { htmlAttributes = new { @class = "form-control" } })
+			@Html.ValidationMessageFor(model => model.ApplyBeginDate, "", new { @class = "text-danger" })
+		</div>
+	</div>
+	<div class="form-group">
+		@Html.LabelFor(model => model.ApplyEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.EditorFor(model => model.ApplyEndDate, new { htmlAttributes = new { @class = "form-control" } })
+			@Html.ValidationMessageFor(model => model.ApplyEndDate, "", new { @class = "text-danger" })
+		</div>
+	</div>
+
+	@*<div class="form-group">
+		@Html.LabelFor(model => model.CanSold, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.EditorFor(model => model.CanSold, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "1" } })
+			@Html.ValidationMessageFor(model => model.CanSold, "", new { @class = "text-danger" })
+		</div>
+	</div>*@
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.TotalNum, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.EditorFor(model => model.TotalNum, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "1" } })
+			@Html.ValidationMessageFor(model => model.TotalNum, "", new { @class = "text-danger" })
+		</div>
+	</div>
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@*@Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })*@
+			<input type="file" name="ImageFile" id="ImageFile" onchange="validateFileAndPreview();" />
+			@Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+		</div>
+	</div>
+	<div class="form-group">
+		<img id="imagePreview" alt="Image Preview" />
+	</div>
+	<div class="form-group">
+		@Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@*@Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })*@
+			<input type="file" name="DescriptionFile" id="DescriptionFile" onchange="validateFile();" />
+			@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+		</div>
+	</div>
+
+	<!--<div class="form-group">
+		@Html.LabelFor(model => model.Alert, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">-->
+	@*@Html.EditorFor(model => model.Alert, new { htmlAttributes = new { @class = "form-control" } })*@
+	<!--<input type="file" name="AlertFile" id="AlertFile" onchange="validateFile();" />
+			@Html.ValidationMessageFor(model => model.Alert, "", new { @class = "text-danger" })
+		</div>
+	</div>
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.PriceDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">-->
+	@*@Html.EditorFor(model => model.PriceDescription, new { htmlAttributes = new { @class = "form-control" } })*@
+	<!--<input type="file" name="PriceDescriptionFile" id="PriceDescriptionFile" onchange="validateFile();" />
+			@Html.ValidationMessageFor(model => model.PriceDescription, "", new { @class = "text-danger" })
+		</div>
+	</div>-->
+
+	<div class="col-md-6">
+		<button type="submit" class="btn btn-primary">
+			<i class="fas fa-save"></i> 存檔
+		</button>
+		<a href="@Url.Action("Index")" class="btn btn-dark">
+			<i class="fas fa-arrow-circle-left"></i> 返回
+		</a>
+	</div>
+</div>
 }
 
 @section Scripts {
@@ -212,11 +210,11 @@
 		function validateFile() {
 			var allowedTypes = ['application/pdf'];
 
-			var fileInput_PriceDescriptionFile = document.getElementById('PriceDescriptionFile');
-			var fileInput_AlertFile = document.getElementById('AlertFile');
+			/*var fileInput_PriceDescriptionFile = document.getElementById('PriceDescriptionFile');
+			var fileInput_AlertFile = document.getElementById('AlertFile');*/
 			var fileInput_DescriptionFile = document.getElementById('DescriptionFile');
 
-			
+			/*
 			if (fileInput_PriceDescriptionFile.files.length > 0) {
 				var fileType_PriceDescriptionFile = fileInput_PriceDescriptionFile.files[0].type;
 				if (allowedTypes.indexOf(fileType_PriceDescriptionFile) === -1) {
@@ -225,6 +223,7 @@
 					fileInput_PriceDescriptionFile.value = '';
 				}
 			}
+			
 			if (fileInput_AlertFile.files.length > 0) {
 				var fileType_AlertFile = fileInput_AlertFile.files[0].type;
 
@@ -233,7 +232,7 @@
 					// 清空文件選擇框，避免用戶上傳錯誤格式的文件
 					fileInput_AlertFile.value = '';
 				}
-			}
+			}*/
 			if (fileInput_DescriptionFile.files.length > 0) {
 				var fileType_DescriptionFile = fileInput_DescriptionFile.files[0].type;
 

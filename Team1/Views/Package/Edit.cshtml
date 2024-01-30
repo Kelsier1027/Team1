@@ -1,122 +1,236 @@
 ﻿@model Team1.ViewModels.PackageVM
 
 @{
-    ViewBag.Title = "Edit";
+	ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<style>
+	h2 {
+		background-color: powderblue;
+		padding: 10px;
+	}
 
+	.form-horizontal {
+		width: 80%;
+		margin: auto;
+	}
 
-@using (Html.BeginForm())
+	.control-label {
+		font-weight: bold;
+	}
+
+	.form-group {
+		margin-bottom: 15px;
+	}
+
+	.col-md-offset-2 {
+		margin-left: 16.66666667%;
+	}
+
+	.btn {
+		margin-top: 15px;
+	}
+
+	#imagePreview {
+		max-width: 100%;
+		max-height: 200px;
+		margin-top: 10px;
+	}
+
+	.form-group {
+		width: 500px
+	}
+	.readonly-input {
+		background-color: #f0f0f0; /* 這裡是你想要的底色 */
+	}
+
+</style>
+
+<h2>產品設定-修改</h2>
+
+@using (Html.BeginForm("Edit", "Package", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return validateFileSelect();" }))
 {
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>PackageVM</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
+	@Html.AntiForgeryToken()
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<div class="form-horizontal">
+	<hr />
+	@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+	<div class="form-group">
+		@Html.LabelFor(model => model.Id, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control readonly-input", @readonly = "readonly" } })
+			@Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+		</div>
+	</div>
+	<div class="form-group">
+		@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+			@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+		</div>
+	</div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
-            </div>
-        </div>
+	<div class="form-group">
+		@Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0" } })
+			@Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+		</div>
+	</div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.LowestGo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LowestGo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LowestGo, "", new { @class = "text-danger" })
-            </div>
-        </div>
+	<div class="form-group">
+		@Html.LabelFor(model => model.LowestGo, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.EditorFor(model => model.LowestGo, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "1" } })
+			@Html.ValidationMessageFor(model => model.LowestGo, "", new { @class = "text-danger" })
+		</div>
+	</div>
+	<div class="form-group">
+		@Html.LabelFor(model => model.ApplyBeginDate, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.EditorFor(model => model.ApplyBeginDate, new { htmlAttributes = new { @class = "form-control" } })
+			@Html.ValidationMessageFor(model => model.ApplyBeginDate, "", new { @class = "text-danger" })
+		</div>
+	</div>
+	<div class="form-group">
+		@Html.LabelFor(model => model.ApplyEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.EditorFor(model => model.ApplyEndDate, new { htmlAttributes = new { @class = "form-control" } })
+			@Html.ValidationMessageFor(model => model.ApplyEndDate, "", new { @class = "text-danger" })
+		</div>
+	</div>
+	<div class="form-group">
+		@Html.LabelFor(model => model.TotalNum, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@Html.EditorFor(model => model.TotalNum, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "1" } })
+			@Html.ValidationMessageFor(model => model.TotalNum, "", new { @class = "text-danger" })
+		</div>
+	</div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ApplyEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ApplyEndDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ApplyEndDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
+	<div class="form-group">
+		@Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			@*@Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })*@
+			<input type="file" name="ImageFile" id="ImageFile" onchange="validateFileAndPreview();" />
+			@Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+		</div>
+	</div>
+	<div class="form-group">
+		<img id="imagePreview" alt="Image Preview"src="@Url.Content(Model.Image)" />
+	</div>
+	<div class="form-group">
+		@Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+		<div class="col-md-10">
+			<a href="javascript:void(0);" onclick="openPDF('@Url.Content(Model.Description)')">View PDF</a>
+			<br/>
+			<input type="file" name="DescriptionFile" id="DescriptionFile" onchange="validateFile();" />
+			@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+		</div>
+	</div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ApplyBeginDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ApplyBeginDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ApplyBeginDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CanSold, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CanSold, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CanSold, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TotalNum, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TotalNum, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TotalNum, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Alert, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Alert, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Alert, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PriceDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PriceDescription, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PriceDescription, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+	<div class="col-md-6">
+		<button type="submit" class="btn btn-primary">
+			<i class="fas fa-save"></i> 存檔
+		</button>
+		<a href="@Url.Action("Index")" class="btn btn-dark">
+			<i class="fas fa-arrow-circle-left"></i> 返回
+		</a>
+	</div>
 </div>
+}
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+	<script>
+		function previewImage() {
+			var fileInput = document.getElementById('ImageFile');
+			var imagePreview = document.getElementById('imagePreview');
+
+			if (fileInput.files && fileInput.files[0]) {
+				var reader = new FileReader();
+
+				reader.onload = function (e) {
+					if (e.target.result !== null && e.target.result !== "") {
+						imagePreview.src = e.target.result;
+					} else {
+						// 如果 URL 為空，不顯示圖片
+						imagePreview.src = "";
+					}
+				}
+
+				reader.readAsDataURL(fileInput.files[0]);
+			} else {
+				// 如果未選擇檔案，不顯示圖片
+				imagePreview.src = "";
+			}
+		}
+		function validateFileSelect() {
+			var imagePreview = document.getElementById('imagePreview');
+			var fileInput_PriceDescriptionFile = document.getElementById('PriceDescriptionFile');
+			var fileInput_AlertFile = document.getElementById('AlertFile');
+			var fileInput_DescriptionFile = document.getElementById('DescriptionFile');
+			if (imagePreview.src == "" || fileInput_PriceDescriptionFile.files.length == 0 || fileInput_AlertFile.files.length == 0 || fileInput_DescriptionFile.files.length == 0) {
+				// 如果未選擇檔案，顯示警告並阻止提交表單
+				alert("請選擇要上傳的圖片跟檔案！");
+				return false;
+			}
+
+			// 如果已選擇檔案，可以提交表單
+			return true;
+		}
+		function validateFileAndPreview() {
+			var allowedTypes = ['image/jpeg', 'image/png'];
+			var fileInput = document.getElementById('ImageFile');
+			var filePath = fileInput.value;
+			var fileType = fileInput.files[0].type;
+
+			if (allowedTypes.indexOf(fileType) === -1) {
+				alert('僅支持 jpg 和 png 格式的圖片');
+				// 清空文件選擇框，避免用戶上傳錯誤格式的文件
+				fileInput.value = '';
+			} else {
+				// 如果檔案類型通過驗證，則調用 previewImage 函數
+				previewImage();
+			}
+		}
+		function validateFile() {
+			var allowedTypes = ['application/pdf'];
+
+			/*var fileInput_PriceDescriptionFile = document.getElementById('PriceDescriptionFile');
+			var fileInput_AlertFile = document.getElementById('AlertFile');*/
+			var fileInput_DescriptionFile = document.getElementById('DescriptionFile');
+
+			/*
+			if (fileInput_PriceDescriptionFile.files.length > 0) {
+				var fileType_PriceDescriptionFile = fileInput_PriceDescriptionFile.files[0].type;
+				if (allowedTypes.indexOf(fileType_PriceDescriptionFile) === -1) {
+					alert('僅可上傳pdf檔');
+					// 清空文件選擇框，避免用戶上傳錯誤格式的文件
+					fileInput_PriceDescriptionFile.value = '';
+				}
+			}
+
+			if (fileInput_AlertFile.files.length > 0) {
+				var fileType_AlertFile = fileInput_AlertFile.files[0].type;
+
+				if (allowedTypes.indexOf(fileType_AlertFile) === -1) {
+					alert('僅可上傳pdf檔');
+					// 清空文件選擇框，避免用戶上傳錯誤格式的文件
+					fileInput_AlertFile.value = '';
+				}
+			}*/
+			if (fileInput_DescriptionFile.files.length > 0) {
+				var fileType_DescriptionFile = fileInput_DescriptionFile.files[0].type;
+
+				if (allowedTypes.indexOf(fileType_DescriptionFile) === -1) {
+					alert('僅可上傳pdf檔');
+					// 清空文件選擇框，避免用戶上傳錯誤格式的文件
+					fileInput_DescriptionFile.value = '';
+				}
+			}
+		}
+		function openPDF(url) {
+			window.open(url, '_blank', 'height=600,width=800');
+		}
+	</script>
+	@Scripts.Render("~/bundles/jqueryval")
 }

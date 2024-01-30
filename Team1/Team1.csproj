@@ -409,6 +409,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\Comment\" />
+    <Folder Include="File\Pinyue\Image\" />
+    <Folder Include="File\Pinyue\PackageDescription\" />
     <Folder Include="個人\Yen\Core\Entities\Member\" />
     <Folder Include="個人\Yen\files\TestMails\" />
     <Folder Include="個人\Yen\Interface\IServices\" />

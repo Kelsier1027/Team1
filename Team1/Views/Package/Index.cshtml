@@ -72,6 +72,11 @@
 			box-sizing: border-box;
 			appearance: none;
 		}
+
+	.thumbnail {
+		max-width: 300px;
+		max-height: 200px;
+	}
 </style>
 
 <h2>產品設定</h2>
@@ -79,25 +84,37 @@
 @using (Html.BeginForm("Search", "Package", FormMethod.Post))
 {
 	@Html.AntiForgeryToken()
-
-	<div class="d-flex align-items-end">
-		<div class="form-group" style="margin-right: 10px;">
-			<label for="Name">產品名稱:</label>
-			<input type="text" name="Name" class="form-control" style="height:50px" />
+	<div class="d-flex flex-column">
+		<div class="form-group d-flex align-items-end">
+			<div style="margin-right: 10px;">
+				<label for="Id">產品編號:</label>
+				<input type="text" name="Id" class="form-control" style="height:50px" />
+			</div>
+			<div style="margin-right: 10px;">
+				<label for="Name">產品名稱:</label>
+				<input type="text" name="Name" class="form-control" style="height:50px" />
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="date">日期:</label>
+					@Html.TextBox("date", null, new { @class = "form-control", @type = "date" })
+				</div>
+			</div>
 		</div>
-		<div class="form-group" style="margin-right: 10px;">
-			<label for="LowestGo">最低成行人數:</label>
-			<input type="text" name="LowestGo" class="form-control" style="height:50px" />
-		</div>
-		<div class="form-group">
-			<button type="submit" class="btn btn-primary">
-				<i class="fas fa-search"></i> 查詢
-			</button>
-			<a href="@Url.Action("Index")" class="btn btn-dark">
-				<i class="fas fa-times"></i> 清除查詢
-			</a>
+		<div class="form-group d-flex">
+			<div style="margin-right: 10px;">
+				<button type="submit" class="btn btn-primary" style="margin-top:5px">
+					<i class="fas fa-search"></i> 查詢
+				</button>
+			</div>
+			<div>
+				<a href="@Url.Action("Index")" class="btn btn-dark" style="margin-top:5px">
+					<i class="fas fa-times"></i> 清除查詢
+				</a>
+			</div>
 		</div>
 	</div>
+
 }
 
 <div class="separator"></div>
@@ -121,10 +138,10 @@
 					@Html.DisplayNameFor(model => model.LowestGo)
 				</th>
 				<th scope="col" style="width: auto;">
-					@Html.DisplayNameFor(model => model.ApplyEndDate)
+					@Html.DisplayNameFor(model => model.ApplyBeginDate)
 				</th>
 				<th scope="col" style="width: auto;">
-					@Html.DisplayNameFor(model => model.ApplyBeginDate)
+					@Html.DisplayNameFor(model => model.ApplyEndDate)
 				</th>
 				<th scope="col" style="width: auto;">
 					@Html.DisplayNameFor(model => model.CanSold)
@@ -138,12 +155,12 @@
 				<th scope="col" style="width: auto;">
 					@Html.DisplayNameFor(model => model.Description)
 				</th>
-				<th scope="col" style="width: auto;">
-					@Html.DisplayNameFor(model => model.Alert)
-				</th>
-				<th scope="col" style="width: auto;">
-					@Html.DisplayNameFor(model => model.PriceDescription)
-				</th>
+				@*<th scope="col" style="width: auto;">
+						@Html.DisplayNameFor(model => model.Alert)
+					</th>
+					<th scope="col" style="width: auto;">
+						@Html.DisplayNameFor(model => model.PriceDescription)
+					</th>*@
 			</tr>
 		</thead>
 		<tbody>
@@ -152,7 +169,6 @@
 				<tr>
 					<td style="width: auto;">
 						@Html.ActionLink("修改", "Edit", new { id = item.Id }, new { @class = "btn btn-success", style = "color: white;" })
-						@Html.ActionLink("詳細", "Details", new { id = item.Id }, new { @class = "btn btn-info", style = "color: white;" })
 						@using (Html.BeginForm("Delete", "Package", new { id = item.Id }, FormMethod.Post, new { id = "deleteForm_" + item.Id }))
 						{
 							@Html.AntiForgeryToken()
@@ -174,10 +190,10 @@
 						@Html.DisplayFor(modelItem => item.LowestGo)
 					</td>
 					<td>
-						@Html.DisplayFor(modelItem => item.ApplyEndDate)
+						@Html.DisplayFor(modelItem => item.ApplyBeginDate)
 					</td>
 					<td>
-						@Html.DisplayFor(modelItem => item.ApplyBeginDate)
+						@Html.DisplayFor(modelItem => item.ApplyEndDate)
 					</td>
 					<td>
 						@Html.DisplayFor(modelItem => item.CanSold)
@@ -185,18 +201,16 @@
 					<td>
 						@Html.DisplayFor(modelItem => item.TotalNum)
 					</td>
+					<td><img src="@item.Image" alt="Image" class="thumbnail" /></td>
 					<td>
-						@Html.DisplayFor(modelItem => item.Image)
+						<a href="javascript:void(0);" onclick="openPDF('@Url.Content(item.Description)')">檢視行程說明</a>
 					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.Description)
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.Alert)
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.PriceDescription)
-					</td>
+					@*<td>
+							@Html.DisplayFor(modelItem => item.Alert)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.PriceDescription)
+						</td>*@
 				</tr>
 			}
 		</tbody>
@@ -207,13 +221,16 @@
 	@Scripts.Render("~/bundles/jqueryval")
 
 	<script>
-        $(document).ready(function () {
-            $('.deleteButton').click(function () {
-                var formId = $(this).data('form-id');
-                if (confirm("確定要刪除嗎？")) {
-                    $('#' + formId).submit();
-                }
-            });
-        });
+		$(document).ready(function () {
+			$('.deleteButton').click(function () {
+				var formId = $(this).data('form-id');
+				if (confirm("確定要刪除嗎？")) {
+					$('#' + formId).submit();
+				}
+			});
+		});
+		function openPDF(url) {
+			window.open(url, '_blank', 'height=600,width=800');
+		}
 	</script>
 }

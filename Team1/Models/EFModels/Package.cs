@@ -43,11 +43,9 @@ namespace Team1.Models.EFModels
         [StringLength(50)]
         public string Description { get; set; }
 
-        [Required]
         [StringLength(50)]
         public string Alert { get; set; }
 
-        [Required]
         public string PriceDescription { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
