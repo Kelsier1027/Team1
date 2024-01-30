@@ -436,7 +436,5 @@ namespace Team1.Models.EFModels
 				.WithRequired(e => e.ServiceCategory)
 				.WillCascadeOnDelete(false);
 		}
-
-        public System.Data.Entity.DbSet<Team1.ViewModels.PackageVM> PackageVMs { get; set; }
 	}
 }

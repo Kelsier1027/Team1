@@ -159,6 +159,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Admin\BEAdminsController.cs" />
+    <Compile Include="Controllers\Admin\RolePermissionsController.cs" />
+    <Compile Include="Controllers\Admin\RolesController.cs" />
     <Compile Include="Controllers\AttractionApiController.cs" />
     <Compile Include="Controllers\AttractionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -166,19 +168,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="個人\Yen\Interface\IRepositories\Admin\IAdminRepository.cs" />
-    <Compile Include="個人\Yen\Interface\IRepositories\Member\IMemberRepository.cs" />
-    <Compile Include="個人\Yen\Core\Entities\Admin\AdminEntity.cs" />
-    <Compile Include="個人\Yen\Models\DTO\Admin\AdminDto.cs" />
-    <Compile Include="個人\Chih\Models\DTO\AttractionDTO.cs" />
-    <Compile Include="個人\Chih\Models\DTO\AttractionPagingDTO.cs" />
-    <Compile Include="個人\Chih\Models\DTO\AttractionSearchDTO.cs" />
-    <Compile Include="個人\Chih\Models\DTO\AttractionTicketDTO.cs" />
-    <Compile Include="個人\Yen\Models\DTO\Member\DiscountsForEachLevelDto.cs" />
-    <Compile Include="個人\Yen\Models\DTO\Member\MemberDto.cs" />
-    <Compile Include="個人\Yen\Models\DTO\Member\MemberPersonalInfoDto.cs" />
-    <Compile Include="個人\Yen\Models\DTO\Member\MemberProfileDto.cs" />
-    <Compile Include="個人\Yen\Models\DTO\Member\MembershipLevelDto.cs" />
     <Compile Include="Models\EFModels\AdminRole.cs" />
     <Compile Include="Models\EFModels\AppDbContext.cs" />
     <Compile Include="Models\EFModels\Attraction.cs" />
@@ -233,6 +222,19 @@
     <Compile Include="Models\EFModels\Role.cs" />
     <Compile Include="Models\EFModels\RolePermission.cs" />
     <Compile Include="Models\EFModels\ServiceCategory.cs" />
+    <Compile Include="個人\Yen\Interface\IRepositories\Admin\IAdminRepository.cs" />
+    <Compile Include="個人\Yen\Interface\IRepositories\Member\IMemberRepository.cs" />
+    <Compile Include="個人\Yen\Core\Entities\Admin\AdminEntity.cs" />
+    <Compile Include="個人\Yen\Models\DTO\Admin\AdminDto.cs" />
+    <Compile Include="個人\Chih\Models\DTO\AttractionDTO.cs" />
+    <Compile Include="個人\Chih\Models\DTO\AttractionPagingDTO.cs" />
+    <Compile Include="個人\Chih\Models\DTO\AttractionSearchDTO.cs" />
+    <Compile Include="個人\Chih\Models\DTO\AttractionTicketDTO.cs" />
+    <Compile Include="個人\Yen\Models\DTO\Member\DiscountsForEachLevelDto.cs" />
+    <Compile Include="個人\Yen\Models\DTO\Member\MemberDto.cs" />
+    <Compile Include="個人\Yen\Models\DTO\Member\MemberPersonalInfoDto.cs" />
+    <Compile Include="個人\Yen\Models\DTO\Member\MemberProfileDto.cs" />
+    <Compile Include="個人\Yen\Models\DTO\Member\MembershipLevelDto.cs" />
     <Compile Include="個人\Yen\Exts\Admin\AdminDtoExts.cs" />
     <Compile Include="個人\Yen\Exts\Admin\AdminEntityExts.cs" />
     <Compile Include="個人\Yen\Exts\Admin\BEAdminExts.cs" />
@@ -405,6 +407,16 @@
     <Content Include="Views\Package\Details.cshtml" />
     <Content Include="Views\Package\Edit.cshtml" />
     <Content Include="Views\Package\Index.cshtml" />
+    <Content Include="Views\Roles\Create.cshtml" />
+    <Content Include="Views\Roles\Delete.cshtml" />
+    <Content Include="Views\Roles\Details.cshtml" />
+    <Content Include="Views\Roles\Edit.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\RolePermissions\Create.cshtml" />
+    <Content Include="Views\RolePermissions\Delete.cshtml" />
+    <Content Include="Views\RolePermissions\Details.cshtml" />
+    <Content Include="Views\RolePermissions\Edit.cshtml" />
+    <Content Include="Views\RolePermissions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -472,12 +484,12 @@
     <PropertyGroup>
       <ErrorText>此專案參考這部電腦上所缺少的 NuGet 套件。請啟用 NuGet 套件還原，以下載該套件。如需詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的檔案是 {0}。</ErrorText>
     </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
     <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
     <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
   </Target>
-  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
