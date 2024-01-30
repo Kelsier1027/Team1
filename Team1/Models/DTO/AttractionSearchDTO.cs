@@ -9,7 +9,7 @@ namespace Team1.Models.DTO
     {
         //搜尋
         public string Keyword { get; set; }
-        public int CategoryId { get; set; } = 0;  
+        public int? CategoryId { get; set; } = 0;
         //排序
         public string SortBy { get; set; }
         public string SortDirection { get; set; }

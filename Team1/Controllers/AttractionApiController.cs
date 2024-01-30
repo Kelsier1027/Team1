@@ -20,9 +20,9 @@ namespace Team1.Controllers
         public IHttpActionResult DisplayAttraction([FromBody] AttractionSearchDTO _search)
         {
             var db = new AppDbContext();
-            var attractions = _search.CategoryId == 0 ? db.Attractions : db.Attractions.Where(a => a.Id == _search.CategoryId);
+            var attractions = _search.CategoryId == 0 ? db.Attractions : db.Attractions.Where(a => a.AttractionCategoryId == _search.CategoryId);
 
-            if(!string.IsNullOrEmpty(_search.Keyword))
+            if (!string.IsNullOrEmpty(_search.Keyword))
             {
                 attractions = attractions.Where(a => a.Name.Contains(_search.Keyword) || a.Description.Contains(_search.Keyword));
             }
@@ -43,23 +43,23 @@ namespace Team1.Controllers
             int totalPage = (int)Math.Ceiling((decimal)totalCount / pageSize);
             int page = _search.Page ?? 1;
 
-            var attractionsDto= attractions.Select(a=> new AttractionDTO
+            var attractionsDto = attractions.Select(a => new AttractionDTO
             {
-                Id=a.Id,
-                Name=a.Name,    
-                Address=a.Address,  
-                Category=a.AttractionCategory.Name, 
-                City=a.City.Name,   
-                Description=a.Description,  
-                CoverImage=a.MainImage,
+                Id = a.Id,
+                Name = a.Name,
+                Address = a.Address,
+                Category = a.AttractionCategory.Name,
+                City = a.City.Name,
+                Description = a.Description,
+                CoverImage = a.MainImage,
             }).Skip((page - 1) * pageSize).Take(pageSize);
 
             AttractionPagingDTO attractionpageing = new AttractionPagingDTO();
             attractionpageing.TotalPages = totalPage;
-            attractionpageing.Attractions = attractionsDto.ToList();    
-            
+            attractionpageing.Attractions = attractionsDto.ToList();
 
-            return Json(attractionpageing);        
+
+            return Json(attractionpageing);
         }
 
 
@@ -67,7 +67,9 @@ namespace Team1.Controllers
         public IHttpActionResult GetCategory()
         {
             var db = new AppDbContext();
-            var categories = db.AttractionCategories.Select(c => new { c.Id, c.Name }).ToList();
+            var categories = db.AttractionCategories.Select(c => new { c.Id, c.Name })
+                                                    .OrderBy(c=>c.Id)
+                                                    .ToList();
             return Json(categories);
         }
     }

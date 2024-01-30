@@ -148,6 +148,7 @@
     <Compile Include="Models\DTO\AttractionDTO.cs" />
     <Compile Include="Models\DTO\AttractionPagingDTO.cs" />
     <Compile Include="Models\DTO\AttractionSearchDTO.cs" />
+    <Compile Include="Models\DTO\AttractionTicketDTO.cs" />
     <Compile Include="Models\EFModel\AdminRole.cs" />
     <Compile Include="Models\EFModel\AppDbContext.cs" />
     <Compile Include="Models\EFModel\Attraction.cs" />
@@ -202,6 +203,7 @@
     <Compile Include="Models\EFModel\Role.cs" />
     <Compile Include="Models\EFModel\RolePermission.cs" />
     <Compile Include="Models\EFModel\ServiceCategory.cs" />
+    <Compile Include="Models\ViewModel\AttractionVm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -259,11 +261,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Attraction\Dashboard.cshtml" />
     <Content Include="Views\Attraction\Attraction.cshtml" />
+    <Content Include="Views\Attraction\AttractionList.cshtml" />
+    <Content Include="Views\Attraction\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\ViewModels\" />
-    <Folder Include="Views\AttractionApi\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
