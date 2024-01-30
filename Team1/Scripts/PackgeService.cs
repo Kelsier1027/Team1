@@ -72,6 +72,7 @@ namespace Team1.Scripts
                 db.SaveChanges();
             }
         }
+
         // 檢查 RoomId 是否已存在的方法
         public bool IsPackageIdExist(int id)
         {
