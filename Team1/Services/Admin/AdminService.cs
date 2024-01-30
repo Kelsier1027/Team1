@@ -7,6 +7,7 @@ using Team1.InterFace.Member;
 using Team1.Models.Core.Entities.Admin;
 using Team1.Models.DTO.Admin;
 using Team1.Models.Exts.Admin;
+using Team1.Models.Infra;
 using Team1.Models.Repositories.Admins;
 using Team1.Models.ViewModels.Admin;
 
@@ -40,29 +41,46 @@ namespace Team1.Services.Admin
 			string salt = BCrypt.Net.BCrypt.GenerateSalt(12);
 			// 使用 BCrypt 產生雜湊密碼
 			string encryptedPassword = BCrypt.Net.BCrypt.HashPassword(dto.Password, salt);
+			// 將雜湊密碼存入 dto
+			dto.EncryptedPassword = encryptedPassword;
+
 			// 為驗證信件產生驗證碼
 			string verificationCode = Guid.NewGuid().ToString();
 			// 將驗證碼存入 dto
 			dto.VerificationCode = verificationCode;
-			// 將雜湊密碼存入 dto
-			dto.EncryptedPassword = encryptedPassword;
-			// 將帳號狀態設定為未啟用
-			dto.ActiveStatus = false;
+			// 寄送驗證信件驗證信箱
+
+			// 將信箱狀態設定為未驗證
+			dto.IsEmailConfirmed = false;
+			// 將帳號狀態設定為啟用
+			dto.ActiveStatus = true;
 			// 將註冊日期設定為現在時間
 			dto.RegistrationDate = DateTime.Now;
-			// 將 dto 轉換成 entity，並且透過Entity建構式檢查資料正確性
+			// 將 dto 轉換成 entity，並且透過Entity檢查資料正確性
+			int newAdminId= 0;
 			try
 			{
 				AdminEntity newAdmin = dto.ToEntity();
 				// 呼叫 repo 建立新增管理員
-				int newAdminId = _repo.Create(newAdmin);
-				return newAdminId;
+				newAdminId = _repo.Create(newAdmin);
+				
 			}
 			catch (Exception ex)
 			{
 				throw new Exception("資料有缺漏，請檢查傳入資料是否齊全");
 			}
-			
+			var newAdminInDb = _repo.GetById(newAdminId);
+
+			// 寄送確認信
+			var urlTemplate = HttpContext.Current.Request.Url.Scheme + "://" +                          // 生成 http:// 或 https://
+							  HttpContext.Current.Request.Url.Authority + "/" +                         // 生成網域名稱或 ip
+							  "BEAdmins/ConfirmEmail?adminId={0}&verificationCode={1}";                           // 生成網頁 url
+			var url = string.Format(urlTemplate, newAdminInDb.Id, newAdminInDb.VerificationCode);
+			string name = newAdminInDb.Name;
+			string email = newAdminInDb.Email;
+			new AdminsEmailHelper().SendConfirmRegisterMail(url, name, email);
+
+			return newAdminId;
 		}
 
 

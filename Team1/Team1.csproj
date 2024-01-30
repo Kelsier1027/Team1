@@ -164,6 +164,13 @@
     </Compile>
     <Compile Include="InterFace\IRepositories\Admin\IAdminRepository.cs" />
     <Compile Include="InterFace\IRepositories\Member\IMemberRepository.cs" />
+    <Compile Include="Models\Core\Entities\Admin\AdminEntity.cs" />
+    <Compile Include="Models\DTO\Admin\AdminDto.cs" />
+    <Compile Include="Models\DTO\Member\DiscountsForEachLevelDto.cs" />
+    <Compile Include="Models\DTO\Member\MemberDto.cs" />
+    <Compile Include="Models\DTO\Member\MemberPersonalInfoDto.cs" />
+    <Compile Include="Models\DTO\Member\MemberProfileDto.cs" />
+    <Compile Include="Models\DTO\Member\MembershipLevelDto.cs" />
     <Compile Include="Models\EFModels\AdminRole.cs" />
     <Compile Include="Models\EFModels\AppDbContext.cs" />
     <Compile Include="Models\EFModels\Attraction.cs" />
@@ -189,19 +196,7 @@
     <Compile Include="Models\EFModels\City.cs" />
     <Compile Include="Models\EFModels\Comment.cs" />
     <Compile Include="Models\EFModels\CommentImage.cs" />
-    <Compile Include="Models\Core\Entities\Admin\AdminEntity.cs" />
     <Compile Include="Models\EFModels\District.cs" />
-    <Compile Include="Models\DTO\Admin\AdminDto.cs" />
-    <Compile Include="Models\DTO\Member\DiscountsForEachLevelDto.cs" />
-    <Compile Include="Models\DTO\Member\MemberDto.cs" />
-    <Compile Include="Models\DTO\Member\MemberPersonalInfoDto.cs" />
-    <Compile Include="Models\DTO\Member\MemberProfileDto.cs" />
-    <Compile Include="Models\DTO\Member\MembershipLevelDto.cs" />
-    <Compile Include="Models\Exts\Admin\AdminDtoExts.cs" />
-    <Compile Include="Models\Exts\Admin\AdminEntityExts.cs" />
-    <Compile Include="Models\Exts\Admin\BEAdminExts.cs" />
-    <Compile Include="Models\Exts\Admin\CreateAdminVmExts.cs" />
-    <Compile Include="Models\Exts\Member\RegisterVmExts.cs" />
     <Compile Include="Models\EFModels\Gender.cs" />
     <Compile Include="Models\EFModels\Hotel.cs" />
     <Compile Include="Models\EFModels\HotelCategory.cs" />
@@ -227,12 +222,19 @@
     <Compile Include="Models\EFModels\Permission.cs" />
     <Compile Include="Models\EFModels\PointTransction.cs" />
     <Compile Include="Models\EFModels\QA.cs" />
-    <Compile Include="Models\Repositories\Admin\AdminEFRepository.cs" />
-    <Compile Include="Models\Repositories\Member\DiscountsForEachLevelEFRepository.cs" />
-    <Compile Include="Models\Repositories\Member\MemberEFRepository.cs" />
     <Compile Include="Models\EFModels\Role.cs" />
     <Compile Include="Models\EFModels\RolePermission.cs" />
     <Compile Include="Models\EFModels\ServiceCategory.cs" />
+    <Compile Include="Models\Exts\Admin\AdminDtoExts.cs" />
+    <Compile Include="Models\Exts\Admin\AdminEntityExts.cs" />
+    <Compile Include="Models\Exts\Admin\BEAdminExts.cs" />
+    <Compile Include="Models\Exts\Admin\CreateAdminVmExts.cs" />
+    <Compile Include="Models\Exts\Member\RegisterVmExts.cs" />
+    <Compile Include="Models\Infra\AdminsEmailHelper.cs" />
+    <Compile Include="Models\Repositories\Admin\AdminEFRepository.cs" />
+    <Compile Include="Models\Repositories\Member\DiscountsForEachLevelEFRepository.cs" />
+    <Compile Include="Models\Repositories\Member\MemberEFRepository.cs" />
+    <Compile Include="Models\ViewModels\Admin\AdminLoginVm.cs" />
     <Compile Include="Models\ViewModels\Admin\CreateAdminVm.cs" />
     <Compile Include="Models\ViewModels\Admin\NewAdminVm.cs" />
     <Compile Include="Models\ViewModels\Member\RegisterVm.cs" />
@@ -296,9 +298,11 @@
     <Content Include="Views\BEAdmins\Details.cshtml" />
     <Content Include="Views\BEAdmins\Edit.cshtml" />
     <Content Include="Views\BEAdmins\CreateSuccess.cshtml" />
+    <Content Include="Views\BEAdmins\ConfirmEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="files\TestMails\" />
     <Folder Include="InterFace\IServices\" />
     <Folder Include="Models\Core\Entities\Member\" />
   </ItemGroup>

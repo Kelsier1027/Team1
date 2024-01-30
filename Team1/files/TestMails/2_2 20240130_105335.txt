@@ -1,0 +1,6 @@
+﻿from:g01.webapp@gmail.com
+							to:2@2
+							subject:[會員註冊確認信]
+							Hi 2,
+			<br/>
+			請點擊此連結 [<a href='https://localhost:44389/BEAdmins/ConfirmEmail?adminId=2&verificationCode=3899a7d4-d7a7-4aa6-a7df-e84190a05a1a' target='_blank'>我要確認註冊</a>], 以進行註冊確認, 如果您沒有提出申請, 請忽略本信, 謝謝

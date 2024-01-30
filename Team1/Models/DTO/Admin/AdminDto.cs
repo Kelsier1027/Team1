@@ -26,6 +26,8 @@ namespace Team1.Models.DTO.Admin
 
 		public bool ActiveStatus { get; set; }
 
+		public bool IsEmailConfirmed { get; set; }
+
 		public string VerificationCode { get; set; }
 	}
 }

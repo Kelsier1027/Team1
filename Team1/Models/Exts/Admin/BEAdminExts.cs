@@ -21,6 +21,7 @@ namespace Team1.Models.Exts.Admin
 				model.Name,
 				model.RegistrationDate,
 				model.ActiveStatus,
+				model.IsEmailConfirmed,
 				model.VerificationCode
 																																							);
 		}

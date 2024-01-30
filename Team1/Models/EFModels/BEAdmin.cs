@@ -1,4 +1,4 @@
-namespace Team1.Models
+namespace Team1.Models.EFModels
 {
     using System;
     using System.Collections.Generic;
@@ -36,6 +36,8 @@ namespace Team1.Models
         public DateTime RegistrationDate { get; set; }
 
         public bool ActiveStatus { get; set; }
+
+        public bool IsEmailConfirmed { get; set; }
 
         [StringLength(36)]
         public string VerificationCode { get; set; }

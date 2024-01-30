@@ -10,8 +10,9 @@ namespace Team1.Models.Core.Entities.Admin
 {
 	public class AdminEntity
 	{
-		public AdminEntity(int id, string account, string encryptedPassword, string email, string name, DateTime registrationDate, bool activeStatus,string verificationCode)
+		public AdminEntity(int id, string account, string encryptedPassword, string email, string name, DateTime registrationDate, bool activeStatus,bool IsEmailConfirmed, string verificationCode)
 		{
+			
 			Id = id;
 			Account = account;
 			EncryptedPassword = encryptedPassword;
@@ -19,6 +20,7 @@ namespace Team1.Models.Core.Entities.Admin
 			Name = name;
 			RegistrationDate = registrationDate;
 			ActiveStatus = activeStatus;
+			IsEmailConfirmed = IsEmailConfirmed;
 			VerificationCode = verificationCode;
 		}
 
@@ -32,17 +34,23 @@ namespace Team1.Models.Core.Entities.Admin
 		public string EncryptedPassword { get; set; }
 
 		[Required]
-		[StringLength(30)]
+		[StringLength(256)]
 		public string Email { get; set; }
 
 		[Required]
 		[StringLength(40)]
 		public string Name { get; set; }
 
+		[Required]
 		public DateTime RegistrationDate { get; set; }
 
+		[Required]
 		public bool ActiveStatus { get; set; }
 
+		[Required]
+		public bool IsEmailConfirmed { get; set; }
+
+		
 		public string VerificationCode { get; set; }
 	}
 

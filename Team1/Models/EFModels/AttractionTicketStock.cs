@@ -1,4 +1,4 @@
-namespace Team1.Models
+namespace Team1.Models.EFModels
 {
     using System;
     using System.Collections.Generic;
