@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -14,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Team1</RootNamespace>
     <AssemblyName>Team1</AssemblyName>
-    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -25,6 +26,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -46,10 +48,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
@@ -61,11 +63,7 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -141,13 +139,76 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AttractionApiController.cs" />
+    <Compile Include="Controllers\AttractionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DTO\AttractionDTO.cs" />
+    <Compile Include="Models\DTO\AttractionPagingDTO.cs" />
+    <Compile Include="Models\DTO\AttractionSearchDTO.cs" />
+    <Compile Include="Models\DTO\AttractionTicketDTO.cs" />
+    <Compile Include="Models\EFModel\AdminRole.cs" />
+    <Compile Include="Models\EFModel\AppDbContext.cs" />
+    <Compile Include="Models\EFModel\Attraction.cs" />
+    <Compile Include="Models\EFModel\AttractionCategory.cs" />
+    <Compile Include="Models\EFModel\AttractionContent.cs" />
+    <Compile Include="Models\EFModel\AttractionImage.cs" />
+    <Compile Include="Models\EFModel\AttractionOrder.cs" />
+    <Compile Include="Models\EFModel\AttractionOrderStatus.cs" />
+    <Compile Include="Models\EFModel\AttractionTicket.cs" />
+    <Compile Include="Models\EFModel\AttractionTicketStock.cs" />
+    <Compile Include="Models\EFModel\AttractionTicketType.cs" />
+    <Compile Include="Models\EFModel\AttrationOrderItem.cs" />
+    <Compile Include="Models\EFModel\BEAdmin.cs" />
+    <Compile Include="Models\EFModel\Car.cs" />
+    <Compile Include="Models\EFModel\CarBrand.cs" />
+    <Compile Include="Models\EFModel\CarEnergyType.cs" />
+    <Compile Include="Models\EFModel\CarModel.cs" />
+    <Compile Include="Models\EFModel\CarModelImage.cs" />
+    <Compile Include="Models\EFModel\CarOrder.cs" />
+    <Compile Include="Models\EFModel\CarOrderStatus.cs" />
+    <Compile Include="Models\EFModel\CarStatus.cs" />
+    <Compile Include="Models\EFModel\CarTransmission.cs" />
+    <Compile Include="Models\EFModel\City.cs" />
+    <Compile Include="Models\EFModel\Comment.cs" />
+    <Compile Include="Models\EFModel\CommentImage.cs" />
+    <Compile Include="Models\EFModel\District.cs" />
+    <Compile Include="Models\EFModel\Gender.cs" />
+    <Compile Include="Models\EFModel\Hotel.cs" />
+    <Compile Include="Models\EFModel\HotelCategory.cs" />
+    <Compile Include="Models\EFModel\HotelImage.cs" />
+    <Compile Include="Models\EFModel\HotelOrder.cs" />
+    <Compile Include="Models\EFModel\HotelOrderCancelReason.cs" />
+    <Compile Include="Models\EFModel\HotelOrderItem.cs" />
+    <Compile Include="Models\EFModel\HotelOrderStatus.cs" />
+    <Compile Include="Models\EFModel\HotelRoom.cs" />
+    <Compile Include="Models\EFModel\HotelRoomImage.cs" />
+    <Compile Include="Models\EFModel\HotelType.cs" />
+    <Compile Include="Models\EFModel\Member.cs" />
+    <Compile Include="Models\EFModel\MemberActivityRecord.cs" />
+    <Compile Include="Models\EFModel\MemberLevel.cs" />
+    <Compile Include="Models\EFModel\MemberPersonalInfo.cs" />
+    <Compile Include="Models\EFModel\MemberProfile.cs" />
+    <Compile Include="Models\EFModel\Package.cs" />
+    <Compile Include="Models\EFModel\PackageAttractionItem.cs" />
+    <Compile Include="Models\EFModel\PackageHotelRoomItem.cs" />
+    <Compile Include="Models\EFModel\PackageMemo.cs" />
+    <Compile Include="Models\EFModel\PackageOrde.cs" />
+    <Compile Include="Models\EFModel\PackageOrderStatus.cs" />
+    <Compile Include="Models\EFModel\Permission.cs" />
+    <Compile Include="Models\EFModel\PointTransction.cs" />
+    <Compile Include="Models\EFModel\QA.cs" />
+    <Compile Include="Models\EFModel\Role.cs" />
+    <Compile Include="Models\EFModel\RolePermission.cs" />
+    <Compile Include="Models\EFModel\ServiceCategory.cs" />
+    <Compile Include="Models\ViewModel\AttractionVm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AttractionImage\nodatafound.png" />
+    <Content Include="AttractionImage\台北101觀景台.jpg" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -198,6 +259,10 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Attraction\Dashboard.cshtml" />
+    <Content Include="Views\Attraction\Attraction.cshtml" />
+    <Content Include="Views\Attraction\AttractionList.cshtml" />
+    <Content Include="Views\Attraction\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -263,7 +328,10 @@
       <ErrorText>此專案參考這部電腦上所缺少的 NuGet 套件。請啟用 NuGet 套件還原，以下載該套件。如需詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的檔案是 {0}。</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
   </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

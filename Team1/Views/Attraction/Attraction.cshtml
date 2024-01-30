@@ -1,0 +1,147 @@
+﻿
+@{
+    ViewBag.Title = "Attraction";
+}
+
+
+
+<div class="row">
+    <div class="col-6">
+        <input type="search" id="inputKeyword" class="form-control mb-3" placeholder="關鍵字搜尋">
+    </div>
+    <div class="col-2">
+        <button class="btn btn-success">搜尋</button>
+    </div>
+</div>
+
+
+<div class="d-flex justify-content-center">
+    <ul class="pagination pagination-sm"></ul>
+</div>
+<ul class="pagination pagination-lg d-flex justify-content-center" id="categorypage">
+    <li class="page-item active" aria-current="page">
+
+    </li>
+</ul>
+<div>
+    <div class="nodata"></div>
+    <div class="row row-cols-1 row-cols-md-3 g-4" id="attractions"></div>
+
+</div>
+
+
+
+
+
+@section Scripts{
+    <script>
+        const categoryList = document.querySelector('#categorypage')
+        const ulPaging = document.querySelector('.pagination')
+        const nodata = document.querySelector('.nodata');
+        const searchInput = document.querySelector('#inputKeyword');
+        const divAttractions = document.querySelector('#attractions');
+        const searchData = {
+            "Keyword": "",
+            "CategoryId":0,
+            "SortBy": "",
+            "SortDirection": "",
+            "Page": 1,
+            "PageSize": 12,
+        };
+        const sortOption = {
+            "AttractionName": "名稱",
+            "AttractionId": "編號",
+        };
+
+
+        (async () => {
+            const response = await fetch('/api/AttractionApi/GetCategory')
+            const datasCategories = await response.json();
+            console.log(datasCategories);
+            const opCategories = datasCategories.map(cate => `<div class="me-3"><button class="cate btn-info rounded-3" value=${cate.Id}>${cate.Name}</button></div>`);
+            categoryList.innerHTML = opCategories.join("");
+            const category = document.querySelectorAll('.cate');  //待html插入完再選取、綁事件
+            category.forEach(cate => {
+                cate.addEventListener('click', (event) => {
+                    //console.log(typeof (event.target.value))
+                    //console.log(searchData)
+                    searchData.CategoryId = event.target.value;
+                    loadAttraction();
+                });
+            });
+        })();
+
+        const loadAttraction = async () => {
+            const response = await fetch(('/api/AttractionApi/DisplayAttraction'), {
+                'method': 'POST',
+                'body': JSON.stringify(searchData),
+                'headers': {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const datas = await response.json();
+
+            let lipPaging = "";
+            for (let i = 1, max = datas.TotalPages; i <= max; i++) {
+                lipPaging += `<li class="page-item" onclick="pageHandler(${i})"><a class="page-link" href="#">${i}</a></li>`
+            }
+            ulPaging.innerHTML = lipPaging;
+
+
+            console.log(datas);
+            // /AttractionImage/台北101觀景台.jpg
+            if (datas.Attractions.length === 0) {
+                divAttractions.innerHTML = `<img src="/AttractionImage/nodatafound.png"" style="height:800;width:1400px;opacity: 0.2">`
+            }
+            else {
+
+                const cardAttractions = datas.Attractions.map(attraction => {
+                    const { Name, Address, Category, City, Description, CoverImage } = attraction;
+                    const truncateDescription = Description.length > 50 ? Description.substring(0, 50) + "..." : Description;
+                    return (
+                        `
+                                        <div class="card" style="width: 18rem;">
+                                          <img src="${CoverImage}" class="card-img-top mt-3" alt="Oops">
+                                          <div class="card-body">
+                                            <h5 class="card-title">${Name}</h5>
+                                            <p class="card-text">${truncateDescription}</p>
+                                          </div>
+                                          <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">${City}</li>
+                                            <li class="list-group-item">${Address}</li>
+                                            <li class="list-group-item">${Category}</li>
+                                          </ul>
+                                          <div class="card-body">
+                                            <a href="#" class="card-link">Edit?</a>
+                                            <a href="#" class="card-link">Delete?</a>
+                                          </div>
+                                        </div>
+                                         `
+                    );
+                });
+                divAttractions.innerHTML = cardAttractions.join("");
+            }
+
+
+        }
+     
+
+
+        searchInput.addEventListener('keydown', (event) => {
+            if (event.which === 13) {
+                searchData.Keyword = searchInput.value;
+                searchData.page = 1;
+                loadAttraction();
+            }
+        });
+
+        const pageHandler = (page) => {
+            searchData.Page = page
+            loadAttraction();
+        }
+
+        loadAttraction();
+
+    </script>
+
+}
