@@ -10,7 +10,7 @@ namespace Team1.Models.Core.Entities.Admin
 {
 	public class AdminEntity
 	{
-		public AdminEntity(int id, string account, string encryptedPassword, string email, string name, DateTime registrationDate, bool activeStatus,bool IsEmailConfirmed, string verificationCode)
+		public AdminEntity(int id, string account, string encryptedPassword, string email, string name, DateTime registrationDate, bool activeStatus,bool isEmailConfirmed, string verificationCode)
 		{
 			
 			Id = id;
@@ -20,7 +20,7 @@ namespace Team1.Models.Core.Entities.Admin
 			Name = name;
 			RegistrationDate = registrationDate;
 			ActiveStatus = activeStatus;
-			IsEmailConfirmed = IsEmailConfirmed;
+			IsEmailConfirmed = isEmailConfirmed;
 			VerificationCode = verificationCode;
 		}
 

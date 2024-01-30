@@ -10,12 +10,13 @@ using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.UI.WebControls;
 using Team1.InterFace.IRepositories.Admin;
-using Team1.InterFace.admin;
 using Team1.Models.EFModels;
 using Team1.Models.Exts.Admin;
+using Team1.Models.Infra;
 using Team1.Models.Repositories.Admins;
 using Team1.Models.ViewModels.Admin;
 using Team1.Services.Admin;
+using Team1.ViewModels.Admin;
 
 namespace Team1.Controllers
 {
@@ -34,6 +35,228 @@ namespace Team1.Controllers
 		public ActionResult Index()
 		{
 			return View(db.BEAdmins.ToList());
+		}
+
+		public ActionResult ForgetPassword()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public ActionResult ForgetPassword(AdminForgetPasswordVm vm)
+		{
+			if (!ModelState.IsValid) return View(vm);
+
+			var urlTemplate = Request.Url.Scheme + "://" +  // 生成 http:.// 或 https://
+							  Request.Url.Authority + "/" + // 生成網域名稱或 ip
+							  "BEAdmins/ResetPassword?adminId={0}&confirmCode={1}"; // 生成網頁 url
+			try
+			{
+				ProcessResetPassword(vm.Account, vm.Email, urlTemplate);
+			}
+			catch (Exception ex)
+			{
+				ModelState.AddModelError("", ex.Message);
+				return View(vm);
+			}
+			return View("ForgetPasswordConfirm");
+		}
+
+		/// <summary>
+		/// 重設密碼, 使用者經由信件裡的超連結而來,並不是在網站裡提供本網址
+		/// </summary>
+		/// <param name="adminId"></param>
+		/// <param name="confirmCode"></param>
+		/// <returns></returns>
+		public ActionResult ResetPassword(int AdminId, string verificationCode)
+		{
+			return View();
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult ResetPassword(int AdminId, string verificationCode, AdminResetPasswordVM vm)
+		{
+			// 檢查 vm 是否通過驗證
+			if (!ModelState.IsValid) return View(vm);
+			try
+			{
+				ProcessResetPassword(AdminId, verificationCode, vm);
+			}
+			catch (Exception ex)
+			{
+				ModelState.AddModelError("", ex.Message);
+				return View(vm);
+			}
+			// 顯示重設密碼成功畫面
+			return View("AdminConfirmResetPassword");
+		}
+
+		/// <summary>
+		/// 基於安全考量, 若 adminId, confirmCode有錯, 都不會顯示錯誤訊息, 只會顯示重設密碼畫面
+		/// </summary>
+		/// <param name="adminId"></param>
+		/// <param name="confirmCode"></param>
+		/// <param name="vm"></param>
+		private void ProcessResetPassword(int adminId, string verificationCode, AdminResetPasswordVM vm)
+		{
+			var db = new AppDbContext();
+			// 檢查 adminId, confirmCode 是否正確
+			var adminInDb = db.BEAdmins.FirstOrDefault(m => m.Id == adminId &&
+														m.IsEmailConfirmed == true &&
+														m.VerificationCode == verificationCode);
+			if (adminInDb == null) return; // 不動聲色的離開
+
+			// 重設密碼 使用 bcrypt 雜湊
+			var salt = BCrypt.Net.BCrypt.GenerateSalt(11);
+			var hashedPassword = BCrypt.Net.BCrypt.HashPassword(vm.Password, salt);
+
+			adminInDb.EncryptedPassword = hashedPassword;
+			adminInDb.VerificationCode = null;
+			db.SaveChanges();
+		}
+
+
+		private void ProcessResetPassword(string account, string email, string urlTemplate)
+		{
+			var db = new AppDbContext();
+			// 檢查account,email正確性
+			var adminInDb = db.BEAdmins.FirstOrDefault(m => m.Account == account);
+			if (adminInDb == null) throw new Exception("帳號不存在");
+			if (string.Compare(email, adminInDb.Email, StringComparison.CurrentCultureIgnoreCase) != 0) throw new Exception("帳號或 Email 錯誤");
+
+			// 檢查 IsEmailConfirmed必需是true, 因為只有信箱已驗證的帳號才能重設密碼
+			if (adminInDb.IsEmailConfirmed == false) throw new Exception("您還沒有驗證信箱, 請先至信箱接收驗證信進行驗證");
+
+			// 更新記錄, 填入 verificationCode
+			var verificationCode = Guid.NewGuid().ToString("N");
+			adminInDb.VerificationCode = verificationCode;
+			db.SaveChanges();
+
+			// 發送重設密碼信
+			var url = string.Format(urlTemplate, adminInDb.Id, verificationCode);
+
+			new AdminsEmailHelper().SendForgetPasswordEmail(url, adminInDb.Name, email);
+
+		}
+
+		[Authorize]
+		public ActionResult EditPassword()
+		{
+			return View();
+		}
+
+		[Authorize]
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult EditPassword(AdminEditPasswordVm vm)
+		{
+			if (!ModelState.IsValid) return View(vm);
+			try
+			{
+				var currentAccount = User.Identity.Name;
+				ChangePassword(vm, currentAccount);
+			}
+			catch (Exception ex)
+			{
+				ModelState.AddModelError("", ex.Message);
+				return View(vm);
+			}
+			return RedirectToAction("Index","Home");
+		}
+
+		private void ChangePassword(AdminEditPasswordVm vm, string account)
+		{
+			var db = new AppDbContext();
+			var adminInDb = db.BEAdmins.FirstOrDefault(p => p.Account == account);
+			if (adminInDb == null) throw new Exception("帳號不存在");
+
+			// 判斷輸入的原始密碼是否正確
+			var verify = BCrypt.Net.BCrypt.Verify(vm.Password, adminInDb.EncryptedPassword);
+			
+			if (verify)
+			{
+				throw new Exception("原始密碼不正確");
+			}
+
+			// 使用 BCrypt 將密碼雜湊
+			var salt = BCrypt.Net.BCrypt.GenerateSalt(11);
+			var hashedPassword = BCrypt.Net.BCrypt.HashPassword(vm.Password, salt);
+
+			// 更新記錄
+			adminInDb.EncryptedPassword = hashedPassword;
+			db.SaveChanges();
+		}
+
+		[Authorize]
+		public ActionResult EditAdminProfileVm()
+		{
+			var currentAdminAccount = User.Identity.Name;
+			var vm = GetAdminProfile(currentAdminAccount);
+
+			return View(vm);
+		}
+
+		[Authorize]
+		[HttpPost]
+		public ActionResult EditAdminProfileVm(EditAdminProfileVm vm)
+		{
+			var currentAdminAccount = User.Identity.Name;
+			if (!ModelState.IsValid) return View(vm);
+
+			try
+			{
+				UpdateProfile(vm, currentAdminAccount);
+			}
+			catch (Exception ex)
+			{
+				ModelState.AddModelError("", ex.Message);
+				return View(vm);
+			}
+			return RedirectToAction("Index","Home"); // 回到首頁
+		}
+
+		private void UpdateProfile(EditAdminProfileVm vm, string account)
+		{
+			// 利用 vm.Id去資料庫取得 Member
+			var db = new AppDbContext();
+			var AdminInDb = db.BEAdmins.FirstOrDefault(p => p.Id == vm.Id);
+
+			// 如果這筆記錄與目前使用者不符, 就拒絕
+			int result = string.Compare(AdminInDb.Account, account, StringComparison.OrdinalIgnoreCase);
+			if (result != 0)
+			//if (adminInDb.Account != account)
+			{
+				throw new Exception("您沒有權限修改別人的資料");
+			}
+			
+			AdminInDb.Name = vm.Name;
+			AdminInDb.Email = vm.Email;
+			
+			db.SaveChanges();
+		}
+
+		private EditAdminProfileVm GetAdminProfile(string account)
+		{
+			var db = new AppDbContext();
+
+			var admin = db.BEAdmins.FirstOrDefault(p => p.Account == account);
+			if (admin == null)
+			{
+				throw new Exception("帳號不存在");
+			}
+
+			var vm = admin.ToEditProfileVm();
+
+			return vm;
+		}
+
+		[Authorize]
+		public ActionResult Logout()
+		{
+			Session.Abandon();
+			FormsAuthentication.SignOut();
+			return Redirect("/BEAdmins/Login");
 		}
 
 		public ActionResult Login()
@@ -103,23 +326,16 @@ namespace Team1.Controllers
 			var db = new AppDbContext();
 
 			// 根據account(帳號)取得 admin
-			var admin = db.admins.FirstOrDefault(p => p.Account == vm.Account);
+			var admin = db.BEAdmins.FirstOrDefault(p => p.Account == vm.Account);
 			if (admin == null)
 			{
 				throw new Exception("帳號或密碼有誤");// 原則上, 不要告知細節
 			}
 
-			// 檢查是否已經確認
-			if (admin.IsConfirmed == false)
-			{
-				throw new Exception("您尚未開通會員資格, 請先收確認信, 並點選信裡的連結, 完成認證, 才能登入本網站");
-			}
+			// 使用 BCrypt 進行密碼比對
+			string AdminsHashPassword = admin.EncryptedPassword;
 
-			// 將vm裡的密碼先雜湊之後,再與db裡的密碼比對
-			var salt = HashUtility.GetSalt();
-			var hashedPassword = HashUtility.ToSHA256(vm.Password, salt);
-
-			if (string.Compare(admin.EncryptedPassword, hashedPassword, true) != 0)
+			if (!BCrypt.Net.BCrypt.Verify(vm.Password, AdminsHashPassword))
 			{
 				throw new Exception("帳號或密碼有誤");
 			}

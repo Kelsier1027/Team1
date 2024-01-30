@@ -14,6 +14,7 @@ namespace Team1.Models.ViewModels.Admin
 
 		[Display(Name = "密碼")]
 		[Required(ErrorMessage = "請輸入密碼")]
+		[DataType(DataType.Password)]
 		public string Password { get; set; }
 	}
 }

@@ -67,7 +67,7 @@ namespace Team1.Services.Admin
 			}
 			catch (Exception ex)
 			{
-				throw new Exception("資料有缺漏，請檢查傳入資料是否齊全");
+				throw new Exception("資料有缺漏，請檢查傳入資料是否齊全" + ex.Message);
 			}
 			var newAdminInDb = _repo.GetById(newAdminId);
 

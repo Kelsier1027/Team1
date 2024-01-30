@@ -15,7 +15,7 @@ namespace Team1.Models.Infra
 			var subject = "[重設密碼通知]";
 			var body = $@"Hi {name},
 <br />
-請點擊此連結 [<a href='{url}' target='_blank'>我要重設密碼</a>], 以進行重設密碼, 如果您沒有提出申請, 請忽略本信, 謝謝";
+請點擊此連結 [<a href='{url}' target='_blank'>重設密碼</a>], 以進行重設密碼, 如果您沒有提出申請, 請忽略本信, 謝謝";
 			var from = senderEmail;
 			var to = email;
 			SendViaGoogle(from, to, subject, body);
@@ -46,10 +46,10 @@ namespace Team1.Models.Infra
 
 		internal void SendConfirmRegisterMail(string url, string name, string email)
 		{
-			var subject = "[會員註冊確認信]";
+			var subject = "[電子信箱驗證信]";
 			var body = $@"Hi {name},
 			<br/>
-			請點擊此連結 [<a href='{url}' target='_blank'>我要確認註冊</a>], 以進行註冊確認, 如果您沒有提出申請, 請忽略本信, 謝謝";
+			請點擊此連結 [<a href='{url}' target='_blank'>驗證電子信箱</a>], 以驗證電子信箱, 如果您沒有提出申請, 請忽略本信, 謝謝";
 
 			var from = senderEmail;
 			var to = email;
