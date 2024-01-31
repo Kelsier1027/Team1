@@ -163,9 +163,9 @@
     <Compile Include="Controllers\AttractionApiController.cs" />
     <Compile Include="Controllers\AttractionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\Hwang\CommentsController.cs" />
-    <Compile Include="Controllers\Hwang\QAsController.cs" />
-    <Compile Include="Controllers\Hwang\ServiceCategorysController.cs" />
+    <Compile Include="Controllers\Huang\CommentsController.cs" />
+    <Compile Include="Controllers\Huang\QAsController.cs" />
+    <Compile Include="Controllers\Huang\ServiceCategorysController.cs" />
     <Compile Include="Controllers\PackageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -178,6 +178,7 @@
     <Compile Include="個人\Huang\Entities\ServiceCategoryEntity.cs" />
     <Compile Include="個人\Huang\Exts\CommentExt.cs" />
     <Compile Include="個人\Huang\Exts\QAsExts.cs" />
+    <Compile Include="個人\Huang\Exts\SelectListExt.cs" />
     <Compile Include="個人\Huang\Exts\ServiceCategoryExts.cs" />
     <Compile Include="個人\Huang\Infra\DAHelper.cs" />
     <Compile Include="個人\Huang\Interfaces\ICommentRepository.cs" />
@@ -437,6 +438,9 @@
     <Content Include="Views\ServiceCategorys\Create.cshtml" />
     <Content Include="Views\Comments\Edit.cshtml" />
     <Content Include="Views\ServiceCategorys\Index.cshtml" />
+    <Content Include="Views\ServiceCategorys\Edit.cshtml" />
+    <Content Include="Views\QAs\Create.cshtml" />
+    <Content Include="Views\QAs\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

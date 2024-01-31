@@ -1,0 +1,87 @@
+﻿@model Team1.個人.Huang.ViewModels.QAsVm
+
+@{
+    ViewBag.Title = "Edit";
+    var lists = (IEnumerable<SelectListItem>)ViewBag.Editlist;
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>QAsVm</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="row">
+            <div class="col-0 col-lg-5"></div>
+            <div class="row col g-3">
+                <div class="col"></div>
+                <div class="col-3">
+            @Html.LabelFor(model => model.ServiceCategoryName, htmlAttributes: new { @class = "form-label" })
+            </div>
+				<div class="col-6">
+					@Html.DropDownListFor(model => model.ServiceCategoryId, lists, new { @class = "form-select" })
+				</div>
+                    <div class="col-6"></div>
+                    <div class="col">
+                @Html.ValidationMessageFor(model => model.ServiceCategoryName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-2"></div>
+            </div>
+       
+        <div class="row">
+            <div class="col-0 col-lg-5"></div>
+            <div class="row col g-3">
+                <div class="col"></div>
+                <div class="col-3">
+            @Html.LabelFor(model => model.QName, htmlAttributes: new { @class = "form-label" })
+            </div>
+            <div class="col-6">
+                @Html.EditorFor(model => model.QName, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="col-6"></div>
+                    <div class="col">
+                @Html.ValidationMessageFor(model => model.QName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-2"></div>
+            </div>
+
+        <div class="row">
+            <div class="col-0 col-lg-5"></div>
+            <div class="row col g-3">
+                <div class="col"></div>
+                <div class="col-3">
+            @Html.LabelFor(model => model.AnsText, htmlAttributes: new { @class = "form-label" })
+            </div>
+            <div class="col-6">
+                @Html.EditorFor(model => model.AnsText, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="col-6"></div>
+                    <div class="col">
+                @Html.ValidationMessageFor(model => model.AnsText, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-2"></div>
+            </div>
+
+        <div class="row">
+            <div class="col-10 d-flex justify-content-end">
+                <input type="submit" value="編輯" class="btn btn-sm btn-success me-3" />
+                @Html.ActionLink("回上頁", "Index", null, new { @class = "btn btn-sm btn-secondary"})
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -10,4 +10,5 @@ namespace Team1.個人.Huang.Interfaces
     {
         IEnumerable<ISelectListItem> SearchAll();
     }
+    
 }

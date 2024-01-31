@@ -6,6 +6,7 @@ using Team1.Models.EFModels;
 using Team1.個人.Huang.Entities;
 using Team1.個人.Huang.Exts;
 using Team1.個人.Huang.Interfaces;
+using System.Data.Entity;
 
 namespace Team1.個人.Huang.Repositories
 {
@@ -50,6 +51,21 @@ namespace Team1.個人.Huang.Repositories
         public List<QAsEntity> GetAll()
         {
             return QAsExts.DbToEntity();
+        }
+
+        public List<QAsEntity> SerchByCategoryId(int categoryId)
+        {
+            return db.QAs.AsNoTracking().Where(x => x.ServiceCategoryId == categoryId).
+                Include(x=>x.ServiceCategory).
+                Select(x => new QAsEntity
+                {
+                    Id = x.Id,
+                    ServiceCategoryName = x.ServiceCategory.Name,
+                    ServiceCategoryId=x.ServiceCategoryId,
+                    QName = x.QName,
+                    AnsText = x.AnsText,
+                }).ToList();
+            
         }
 
         public void Update(QAsEntity entity)
