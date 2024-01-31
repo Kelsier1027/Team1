@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -74,6 +75,8 @@ namespace Team1.Controllers.Hwang
             _service.Delete(id);
             return RedirectToAction("Index");
         }
+        
+
         private ServiceCategoryVm Get(int id)
         {
             var get = _service.Get(id);

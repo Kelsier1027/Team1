@@ -56,6 +56,7 @@ namespace Team1.個人.Huang.Repositories
             return db.ServiceCategories.AsNoTracking().Select(x => new ServiceCategoryEntity { Id = x.Id, Name = x.Name }).ToList();
         }
 
+
         public void Update(ServiceCategoryEntity entity)
         {
             var model = db.ServiceCategories.Find(entity.Id);

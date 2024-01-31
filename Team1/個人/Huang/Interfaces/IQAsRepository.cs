@@ -14,5 +14,6 @@ namespace Team1.個人.Huang.Interfaces
         void Update(QAsEntity entity);
         void Delete(int id);
         QAsEntity Get(int id);
+        List<QAsEntity> SerchByCategoryId(int categoryId);
     }
 }

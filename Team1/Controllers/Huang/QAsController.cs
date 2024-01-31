@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,17 +17,27 @@ namespace Team1.Controllers.Hwang
         private static IQAsRepository GetRepository = new QAsEFRepository();
         QAsService _service = new QAsService(GetRepository);
         // GET: QAs
-        public ActionResult Index()
+        public ActionResult Index(int id = 0)
         {
-            List<QAsVm> vm = QAsExts.DisplayGetAll();
-            IEnumerable<SelectListItem> list = new List<SelectListItem>();
-
-            ViewBag.list = list;
-
+            var vm = new List<QAsVm>();
+            if (id == 0) 
+            {
+                return View(QAsExts.DisplayGetAll());
+            }
+            else
+            {
+                vm = _service.SerchByCategoryId(id).DtoToVm();
+            }            
             return View(vm);
         }
         public ActionResult Create()
         {
+            var repo = new ServiceCategoryEFRepository();
+
+            var service = new ServiceCategoryService(repo);
+
+            ViewBag.Createlist = service.GetSelectListItems();
+
             return View();
         }
         [HttpPost]
@@ -48,8 +59,9 @@ namespace Team1.Controllers.Hwang
             }
         }
         public ActionResult Edit(int id)
-        {
+        {            
             var currentCate = Get(id);
+            ViewBag.Editlist = new ServiceCategoryService(new ServiceCategoryEFRepository()).GetSelectList(id);
             return View(currentCate);
         }
         [HttpPost]
@@ -61,7 +73,7 @@ namespace Team1.Controllers.Hwang
             }
             try
             {
-                _service.Update(QAsExts.VmToDto(vm));
+                _service.Update(vm.VmToDto());
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -87,23 +99,6 @@ namespace Team1.Controllers.Hwang
                 AnsText = get.AnsText,
             };
         }
-        private IEnumerable<SelectListItem> GetSelectListItems(ISelectListService service)
-        {
-            var list = service.SearchAll();
-
-            var result = new List<SelectListItem>();
-
-            foreach (var item in list)
-            {
-                result.Add(new SelectListItem { Value = item.Id.ToString(), Text = item.Name });
-            }
-
-            return result.Prepend(new SelectListItem { Value = "", Text = "請選擇..." });
-        }
-
-        private SelectList GetSelectList(ISelectListService service, int selectId)
-        {
-            return new SelectList(service.SearchAll(), "Id", "Name", selectId);
-        }
+        
     }
 }

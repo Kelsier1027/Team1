@@ -18,15 +18,15 @@ namespace Team1.個人.Huang.Services
         public List<QAsDto> GetAll()
         {
             var entity = _repo.GetAll();
-            return QAsExts.EntityToDto(entity);
+            return entity.EntityToDto();
         }
         public void Create(QAsDto dto)
         {
-            _repo.Create(QAsExts.DtoToEntity(dto));
+            _repo.Create(dto.DtoToEntity());
         }
         public void Update(QAsDto dto)
         {
-            _repo.Update(QAsExts.DtoToEntity(dto));
+            _repo.Update(dto.DtoToEntity());
         }
         public void Delete(int id)
         {
@@ -43,6 +43,12 @@ namespace Team1.個人.Huang.Services
                 AnsText = entity.AnsText,
             };
             return dto;
+        }
+
+        public List<QAsDto> SerchByCategoryId(int id)
+        {
+            var entity = _repo.SerchByCategoryId(id);
+            return entity.EntityToDto();
         }
     }
 }

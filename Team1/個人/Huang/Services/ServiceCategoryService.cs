@@ -8,7 +8,7 @@ using Team1.個人.Huang.Interfaces;
 
 namespace Team1.個人.Huang.Services
 {
-    public class ServiceCategoryService
+    public class ServiceCategoryService : ISelectListService
     {
         private readonly IServiceCategoryRepository _repo;
         public ServiceCategoryService(IServiceCategoryRepository repo)
@@ -17,21 +17,21 @@ namespace Team1.個人.Huang.Services
         }
 
         public List<ServiceCategoryDto> GetAll()
-        {
+        {            
             var enetity = _repo.GetAll();
-            return ServiceCategoryExts.EntityToDto(enetity);
+            return enetity.EntityToDto();
         }
         public void Create(ServiceCategoryDto dto)
         {
             bool isExists = _repo.GetAll().Any(x => x.Name == dto.Name);
             if (isExists) throw new Exception($"{dto.Name}名稱已存在");
-            _repo.Create(ServiceCategoryExts.DtoToEntity(dto));
+            _repo.Create(dto.DtoToEntity());
         }
         public void Update(ServiceCategoryDto dto)
         {
             bool isExists = _repo.GetAll().Any(x => x.Name == dto.Name && x.Id != dto.Id);
             if (isExists) throw new Exception($"{dto.Name}名稱已存在");
-            _repo.Update(ServiceCategoryExts.DtoToEntity(dto));
+            _repo.Update(dto.DtoToEntity());
         }
         public void Delete(int id)
         {
@@ -48,10 +48,10 @@ namespace Team1.個人.Huang.Services
             };
             return dto;
         }
+
         public IEnumerable<ISelectListItem> SearchAll()
         {
-            var entity = _repo.Search();
-            return (IEnumerable<ISelectListItem>)entity;
+            return _repo.Search();             
         }
     }
 }

@@ -18,15 +18,15 @@ namespace Team1.個人.Huang.Services
         public List<CommentDto> GetAll()
         {
             var entity = _repo.GetAll();
-            return CommentExt.EntityToDto(entity);
+            return entity.EntityToDto();
         }
         public void Create(CommentDto dto)
         {
-            _repo.Create(CommentExt.DtoToEntity(dto));
+            _repo.Create(dto.DtoToEntity());
         }
         public void Update(CommentDto dto)
         {
-            _repo.Update(CommentExt.DtoToEntity(dto));
+            _repo.Update(dto.DtoToEntity());
         }
         public void Delete(int id)
         {
