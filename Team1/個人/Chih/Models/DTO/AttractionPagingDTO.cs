@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
-using Team1.Models.EFModels;
+using Team1.Models.EFModel;
 
 namespace Team1.Models.DTO
 {
