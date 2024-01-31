@@ -6,9 +6,12 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Team1", "Team1\Team1.csproj", "{441E7183-10ED-49FF-9EFF-7A36CAAA5896}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00方案項目", "00方案項目", "{BC21FB2C-D43F-46C4-A3E1-A37105082A29}"
-	ProjectSection(SolutionItems) = preProject
-		YEN-ReadMe.txt = YEN-ReadMe.txt
-	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Zheng", "Zheng", "{576E3E26-0CFF-47B8-B1CA-A2D75933BA23}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04基礎建設", "04基礎建設", "{163535D8-AF18-4674-A4EE-8DD38E6C4294}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTOs", "DTOs\DTOs.csproj", "{11650FF3-E09A-4497-ADE4-1FDE6E71C4A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,9 +23,17 @@ Global
 		{441E7183-10ED-49FF-9EFF-7A36CAAA5896}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{441E7183-10ED-49FF-9EFF-7A36CAAA5896}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{441E7183-10ED-49FF-9EFF-7A36CAAA5896}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11650FF3-E09A-4497-ADE4-1FDE6E71C4A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11650FF3-E09A-4497-ADE4-1FDE6E71C4A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11650FF3-E09A-4497-ADE4-1FDE6E71C4A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11650FF3-E09A-4497-ADE4-1FDE6E71C4A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{163535D8-AF18-4674-A4EE-8DD38E6C4294} = {576E3E26-0CFF-47B8-B1CA-A2D75933BA23}
+		{11650FF3-E09A-4497-ADE4-1FDE6E71C4A1} = {163535D8-AF18-4674-A4EE-8DD38E6C4294}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {37D6E740-018D-4C97-8D43-8F3CB653FD51}

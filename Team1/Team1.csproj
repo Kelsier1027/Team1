@@ -308,7 +308,6 @@
     <Content Include="bin\roslyn\System.IO.Compression.ZipFile.dll" />
     <Content Include="bin\roslyn\System.IO.FileSystem.dll" />
     <Content Include="bin\roslyn\System.IO.FileSystem.Primitives.dll" />
-    <Content Include="bin\roslyn\System.Net.Http.dll" />
     <Content Include="bin\roslyn\System.Net.Sockets.dll" />
     <Content Include="bin\roslyn\System.Reflection.Metadata.dll" />
     <Content Include="bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll" />
