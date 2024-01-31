@@ -4,7 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Team1.Models.EFModels;
+using Team1.Models.EFModel;
 using Team1.Models.ViewModel;
 
 namespace Team1.Controllers

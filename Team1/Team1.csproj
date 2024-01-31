@@ -71,6 +71,7 @@
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -162,10 +163,37 @@
     <Compile Include="Controllers\AttractionApiController.cs" />
     <Compile Include="Controllers\AttractionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Hwang\CommentsController.cs" />
+    <Compile Include="Controllers\Hwang\QAsController.cs" />
+    <Compile Include="Controllers\Hwang\ServiceCategorysController.cs" />
     <Compile Include="Controllers\PackageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="個人\Huang\Dtos\CommentDto.cs" />
+    <Compile Include="個人\Huang\Dtos\QAsDto.cs" />
+    <Compile Include="個人\Huang\Dtos\ServiceCategoryDto.cs" />
+    <Compile Include="個人\Huang\Entities\CommentEntity.cs" />
+    <Compile Include="個人\Huang\Entities\QAsEntity.cs" />
+    <Compile Include="個人\Huang\Entities\ServiceCategoryEntity.cs" />
+    <Compile Include="個人\Huang\Exts\CommentExt.cs" />
+    <Compile Include="個人\Huang\Exts\QAsExts.cs" />
+    <Compile Include="個人\Huang\Exts\ServiceCategoryExts.cs" />
+    <Compile Include="個人\Huang\Infra\DAHelper.cs" />
+    <Compile Include="個人\Huang\Interfaces\ICommentRepository.cs" />
+    <Compile Include="個人\Huang\Interfaces\IQAsRepository.cs" />
+    <Compile Include="個人\Huang\Interfaces\ISelectListItem.cs" />
+    <Compile Include="個人\Huang\Interfaces\IServiceCategoryRepository.cs" />
+    <Compile Include="個人\Huang\Interfaces\ISelectListService.cs" />
+    <Compile Include="個人\Huang\Repositories\CommentEFRepository.cs" />
+    <Compile Include="個人\Huang\Repositories\QAsEFRepository.cs" />
+    <Compile Include="個人\Huang\Repositories\ServiceCategoryEFRepository.cs" />
+    <Compile Include="個人\Huang\Services\CommentService.cs" />
+    <Compile Include="個人\Huang\Services\QAsService.cs" />
+    <Compile Include="個人\Huang\Services\ServiceCategoryService.cs" />
+    <Compile Include="個人\Huang\ViewModels\CommentVm.cs" />
+    <Compile Include="個人\Huang\ViewModels\QAsVm.cs" />
+    <Compile Include="個人\Huang\ViewModels\ServiceCategoryV.cs" />
     <Compile Include="個人\Yen\Interface\IRepositories\Admin\IAdminRepository.cs" />
     <Compile Include="個人\Yen\Interface\IRepositories\Member\IMemberRepository.cs" />
     <Compile Include="個人\Yen\Core\Entities\Admin\AdminEntity.cs" />
@@ -258,8 +286,8 @@
     <Compile Include="Services\Admin\AdminService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="個人\Chih\AttractionImage\nodatafound.png" />
-    <Content Include="個人\Chih\AttractionImage\台北101觀景台.jpg" />
+    <Content Include="AttractionImage\nodatafound.png" />
+    <Content Include="AttractionImage\台北101觀景台.jpg" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -405,6 +433,10 @@
     <Content Include="Views\Package\Details.cshtml" />
     <Content Include="Views\Package\Edit.cshtml" />
     <Content Include="Views\Package\Index.cshtml" />
+    <Content Include="Views\QAs\Index.cshtml" />
+    <Content Include="Views\ServiceCategorys\Create.cshtml" />
+    <Content Include="Views\Comments\Edit.cshtml" />
+    <Content Include="Views\ServiceCategorys\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

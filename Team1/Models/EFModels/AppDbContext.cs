@@ -65,6 +65,7 @@ namespace Team1.Models.EFModels
 		public virtual DbSet<RolePermission> RolePermissions { get; set; }
 		public virtual DbSet<Role> Roles { get; set; }
 		public virtual DbSet<ServiceCategory> ServiceCategories { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
