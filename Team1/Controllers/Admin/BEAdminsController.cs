@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.UI.WebControls;
+using Team1.Filters;
 using Team1.InterFace.IRepositories.Admin;
 using Team1.Models.EFModels;
 using Team1.Models.Exts.Admin;
@@ -32,11 +33,12 @@ namespace Team1.Controllers
 		}
 
 		// GET: BEAdmins
+		[CustomAuthorize(Roles = "SystemAdmin")]
 		public ActionResult Index()
 		{
 			return View(db.BEAdmins.ToList());
 		}
-
+		
 		public ActionResult ForgetPassword()
 		{
 			return View();
@@ -292,9 +294,16 @@ namespace Team1.Controllers
 
 		private (string ReturnUrl, HttpCookie Cookie) ProcessLogin(AdminLoginVm vm) // value tuple 元組
 		{
-			var readminMe = false; // 如果LoginVm有ReadminMe屬性, 記得要設定
+			var rememberMe = false; // 如果LoginVm有RememberMe屬性, 記得要設定
 			var account = vm.Account;
-			var roles = string.Empty; // 在本範例, 沒有用到角色權限,所以存入空白
+			// 取得帳號 Id
+			var db = new AppDbContext();
+			//string adminId = db.BEAdmins.FirstOrDefault(p => p.Account == account).ToString();
+			string adminId = "7";
+
+			// 取得該帳號的擁有的權限清單
+			string permissions = Roles.GetRolesForUser(account).ToString();
+
 
 			// 建立一張認證票
 			var ticket =
@@ -303,9 +312,9 @@ namespace Team1.Controllers
 					account,
 					DateTime.Now,   // 發行日
 					DateTime.Now.AddDays(1), // 到期日
-					readminMe,     // 是否續存
-					roles,          // userdata
-					"/" // cookie位置
+					rememberMe,     // 是否續存
+					adminId,       // userdata
+					FormsAuthentication.FormsCookiePath // cookie位置
 				);
 
 			// 將它加密
