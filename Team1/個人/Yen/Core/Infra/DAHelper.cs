@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.Ajax.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Team1.Models.EFModels;
 
 namespace Team1.Models.Infra
 {
@@ -15,5 +17,6 @@ namespace Team1.Models.Infra
 		public const string StringLength = "{0} 長度不可大於 {1}";
 		public const string StringLength2 = "{0} 長度必須介於 {2} 到 {1} 個字";
 		public const string Compare = "{0} 與 {1} 不相同";
+	
 	}
 }

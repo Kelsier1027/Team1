@@ -159,12 +159,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Admin\BEAdminsController.cs" />
-    <Compile Include="Controllers\Admin\RolePermissionsController.cs" />
+    <Compile Include="Controllers\Admin\PermissionsController.cs" />
     <Compile Include="Controllers\Admin\RolesController.cs" />
     <Compile Include="Controllers\AttractionApiController.cs" />
     <Compile Include="Controllers\AttractionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PackageController.cs" />
+    <Compile Include="個人\Yen\Filters\CustomAuthorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -242,6 +243,7 @@
     <Compile Include="個人\Yen\Exts\Member\RegisterVmExts.cs" />
     <Compile Include="個人\Yen\Core\Infra\AdminsEmailHelper.cs" />
     <Compile Include="個人\Yen\Core\Infra\DAHelper.cs" />
+    <Compile Include="個人\Yen\Modules\CustomRoleProvider.cs" />
     <Compile Include="個人\Yen\Repositories\Admin\AdminEFRepository.cs" />
     <Compile Include="個人\Yen\Repositories\Member\DiscountsForEachLevelEFRepository.cs" />
     <Compile Include="個人\Yen\Repositories\Member\MemberEFRepository.cs" />
@@ -412,11 +414,11 @@
     <Content Include="Views\Roles\Details.cshtml" />
     <Content Include="Views\Roles\Edit.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
-    <Content Include="Views\RolePermissions\Create.cshtml" />
-    <Content Include="Views\RolePermissions\Delete.cshtml" />
-    <Content Include="Views\RolePermissions\Details.cshtml" />
-    <Content Include="Views\RolePermissions\Edit.cshtml" />
-    <Content Include="Views\RolePermissions\Index.cshtml" />
+    <Content Include="Views\Permissions\Create.cshtml" />
+    <Content Include="Views\Permissions\Delete.cshtml" />
+    <Content Include="Views\Permissions\Details.cshtml" />
+    <Content Include="Views\Permissions\Edit.cshtml" />
+    <Content Include="Views\Permissions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -10,116 +10,107 @@ using Team1.Models.EFModels;
 
 namespace Team1.Controllers.Admin
 {
-    public class RolePermissionsController : Controller
+    public class PermissionsController : Controller
     {
         private AppDbContext db = new AppDbContext();
 
-        // GET: RolePermissions
+        // GET: Permissions
         public ActionResult Index()
         {
-            var rolePermissions = db.RolePermissions.Include(r => r.Permission).Include(r => r.Role);
-            return View(rolePermissions.ToList());
+            return View(db.Permissions.ToList());
         }
 
-        // GET: RolePermissions/Details/5
+        // GET: Permissions/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            RolePermission rolePermission = db.RolePermissions.Find(id);
-            if (rolePermission == null)
+            Permission permission = db.Permissions.Find(id);
+            if (permission == null)
             {
                 return HttpNotFound();
             }
-            return View(rolePermission);
+            return View(permission);
         }
 
-        // GET: RolePermissions/Create
+        // GET: Permissions/Create
         public ActionResult Create()
         {
-            ViewBag.PermissionId = new SelectList(db.Permissions, "Id", "Name");
-            ViewBag.RoleId = new SelectList(db.Roles, "Id", "Name");
             return View();
         }
 
-        // POST: RolePermissions/Create
+        // POST: Permissions/Create
         // 若要避免過量張貼攻擊，請啟用您要繫結的特定屬性。
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,RoleId,PermissionId")] RolePermission rolePermission)
+        public ActionResult Create([Bind(Include = "Id,Name,Description")] Permission permission)
         {
             if (ModelState.IsValid)
             {
-                db.RolePermissions.Add(rolePermission);
+                db.Permissions.Add(permission);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.PermissionId = new SelectList(db.Permissions, "Id", "Name", rolePermission.PermissionId);
-            ViewBag.RoleId = new SelectList(db.Roles, "Id", "Name", rolePermission.RoleId);
-            return View(rolePermission);
+            return View(permission);
         }
 
-        // GET: RolePermissions/Edit/5
+        // GET: Permissions/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            RolePermission rolePermission = db.RolePermissions.Find(id);
-            if (rolePermission == null)
+            Permission permission = db.Permissions.Find(id);
+            if (permission == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.PermissionId = new SelectList(db.Permissions, "Id", "Name", rolePermission.PermissionId);
-            ViewBag.RoleId = new SelectList(db.Roles, "Id", "Name", rolePermission.RoleId);
-            return View(rolePermission);
+            return View(permission);
         }
 
-        // POST: RolePermissions/Edit/5
+        // POST: Permissions/Edit/5
         // 若要避免過量張貼攻擊，請啟用您要繫結的特定屬性。
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,RoleId,PermissionId")] RolePermission rolePermission)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description")] Permission permission)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(rolePermission).State = EntityState.Modified;
+                db.Entry(permission).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.PermissionId = new SelectList(db.Permissions, "Id", "Name", rolePermission.PermissionId);
-            ViewBag.RoleId = new SelectList(db.Roles, "Id", "Name", rolePermission.RoleId);
-            return View(rolePermission);
+            return View(permission);
         }
 
-        // GET: RolePermissions/Delete/5
+        // GET: Permissions/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            RolePermission rolePermission = db.RolePermissions.Find(id);
-            if (rolePermission == null)
+            Permission permission = db.Permissions.Find(id);
+            if (permission == null)
             {
                 return HttpNotFound();
             }
-            return View(rolePermission);
+            return View(permission);
         }
 
-        // POST: RolePermissions/Delete/5
+        // POST: Permissions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            RolePermission rolePermission = db.RolePermissions.Find(id);
-            db.RolePermissions.Remove(rolePermission);
+            Permission permission = db.Permissions.Find(id);
+            db.Permissions.Remove(permission);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
