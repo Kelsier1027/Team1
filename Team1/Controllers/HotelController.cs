@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using Team1.Models;
 using Team1.Models.EFModels;
+using Team1.Models.Infra;
 
 namespace Team1.Controllers
 {
@@ -65,12 +67,17 @@ namespace Team1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,DistrictId,Address,Grade,Phone,Level,MainImage,CheckinStart,CheckinEnd,CheckoutStart,CheckoutEnd,AddBedFee,BreakfastPrice,HotelTypeId,HotelFacilities,Email")] Hotel hotel, int[] selectedCategories)
+        public ActionResult Create([Bind(Include = "Id,Name,DistrictId,Address,Grade,Phone,Level,MainImage,CheckinStart,CheckinEnd,CheckoutStart,CheckoutEnd,AddBedFee,BreakfastPrice,HotelTypeId,HotelFacilities,Email")] Hotel hotel, int[] selectedCategories,HttpPostedFileBase file1)
         {
             if (ModelState.IsValid)
             {
                 // 序列化成 JSON 格式
                 string json = JsonConvert.SerializeObject(new { FacilityIds = hotel.SelectedCategoryIds });
+
+                //上傳圖片檔案
+                string path = Server.MapPath("/Uploads");
+                string newFileName = new UploadFileHelper().UploadFile(file1,path);
+                hotel.MainImage = newFileName; 
 
                 // 指定給 HotelFacilities 欄位
                 hotel.HotelFacilities = json;

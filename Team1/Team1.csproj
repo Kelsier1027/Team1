@@ -199,6 +199,7 @@
     <Compile Include="Models\EFModels\Role.cs" />
     <Compile Include="Models\EFModels\RolePermission.cs" />
     <Compile Include="Models\EFModels\ServiceCategory.cs" />
+    <Compile Include="Models\Infra\UploadFileHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
