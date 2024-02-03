@@ -121,7 +121,26 @@ namespace Team1.Controllers
             {
                 return HttpNotFound();
             }
+
+            var data = hotel.HotelFacilities;
+            Facilities obj = JsonConvert.DeserializeObject<Facilities>(data);
+            string detail = "<ul>";
+
+            foreach (var facilityId in obj.FacilityIds)
+            {
+                var facility = db.HotelCategories.FirstOrDefault(x => x.Id == facilityId);
+                if (facility != null)
+                {
+                    detail += $"<li>{facility.JAON}</li>";
+                }
+            }
+            detail += "</ul>";
+
+            // 將設施細節存儲在 ViewBag 中，以便在視圖中顯示
+            ViewBag.FacilityDetails = detail;
+
             return View(hotel);
+
         }
 
         // POST: Hotel/Delete/5
