@@ -115,7 +115,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index", "Hotel")
+    @Html.ActionLink("Back to List", "Index", new { id = ViewBag.SelectedHotelId },null)
 </div>
 
 @section Scripts {

@@ -266,6 +266,7 @@
     <Content Include="Views\Hotel\Edit.cshtml" />
     <Content Include="Views\HotelRoom\Index.cshtml" />
     <Content Include="Views\HotelRoom\Create.cshtml" />
+    <Content Include="Views\HotelRoom\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

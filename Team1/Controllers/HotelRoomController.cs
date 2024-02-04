@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Team1.Models.EFModels;
@@ -59,5 +60,37 @@ namespace Team1.Controllers
             ViewBag.HotelId = new SelectList(db.Hotels, "Id", "Name", hotelRoom.HotelId);
             return View(hotelRoom);
         }
+
+        // GET: HotelRooms/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            HotelRoom hotelRoom = db.HotelRooms.Find(id);
+            if (hotelRoom == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.HotelId = id;
+            return View(hotelRoom);
+        }
+
+        // POST: HotelRooms/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            HotelRoom hotelRoom = db.HotelRooms.Find(id);
+            // 假设HotelRoom模型中有一个名为HotelId的属性，指向Hotel的外键
+            int hotelId = hotelRoom.HotelId;
+            db.HotelRooms.Remove(hotelRoom);
+            db.SaveChanges();
+            // 使用hotelId作为参数重定向到Index视图
+            return RedirectToAction("Index", new { id = hotelId });
+        }
+
+
     }
 }
