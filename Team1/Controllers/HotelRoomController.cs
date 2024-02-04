@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Team1.Models.EFModels;
+using Team1.Models.Infra;
 
 namespace Team1.Controllers
 {
@@ -41,11 +42,15 @@ namespace Team1.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,HotelId,Size,RoomFacilities,Capacity,BedCapacity,MainImage,WeekdayPrice,WeekendPrice,AddTimeFee,Count")] HotelRoom hotelRoom)
+        public ActionResult Create([Bind(Include = "Id,Name,HotelId,Size,RoomFacilities,Capacity,BedCapacity,MainImage,WeekdayPrice,WeekendPrice,AddTimeFee,Count")] HotelRoom hotelRoom, HttpPostedFileBase file1)
         {
             if (ModelState.IsValid)
             {
                 hotelRoom.RoomFacilities = "1"; //沒見到資料表 先都預設為1 之後再看是否使用
+                //上傳圖片檔案
+                string path = Server.MapPath("/Uploads");
+                string newFileName = new UploadFileHelper().UploadFile(file1, path);
+                hotelRoom.MainImage = "../" + newFileName;
                 db.HotelRooms.Add(hotelRoom);
                 db.SaveChanges();
                 return RedirectToAction("Index","Hotel");
