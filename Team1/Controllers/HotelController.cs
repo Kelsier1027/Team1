@@ -204,10 +204,18 @@ namespace Team1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,DistrictId,Address,Grade,Phone,Level,MainImage,CheckinStart,CheckinEnd,CheckoutStart,CheckoutEnd,AddBedFee,BreakfastPrice,HotelTypeId,HotelFacilities,Email")] Hotel hotel, int[] selectedFacilityIds)
+        public ActionResult Edit([Bind(Include = "Id,Name,DistrictId,Address,Grade,Phone,Level,MainImage,CheckinStart,CheckinEnd,CheckoutStart,CheckoutEnd,AddBedFee,BreakfastPrice,HotelTypeId,HotelFacilities,Email")] Hotel hotel, int[] selectedFacilityIds, HttpPostedFileBase file1)
         {
             if (ModelState.IsValid)
             {
+                if (file1 != null && file1.ContentLength > 0)
+                {
+                    string path = Server.MapPath("/Uploads");
+                    string newFileName = new UploadFileHelper().UploadFile(file1, path);
+                    // 更新Hotel对象的MainImage属性
+                    hotel.MainImage = newFileName;
+                }
+
                 db.Entry(hotel).State = EntityState.Modified;
                 // 更新 HotelFacilities 字段
                 var jsonFacilities = JsonConvert.SerializeObject(new { FacilityIds = selectedFacilityIds });
