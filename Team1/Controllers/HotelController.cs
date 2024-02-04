@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -61,26 +62,29 @@ namespace Team1.Controllers
             var hotelCategories = db.HotelCategories.ToList();
             ViewBag.DistrictId = new SelectList(db.Districts, "Id", "Name");
             ViewBag.HotelTypeId = new SelectList(db.HotelTypes, "Id", "Name");
-             ViewBag.Categories = hotelCategories;
+            ViewBag.Categories = hotelCategories;
             return View(hotel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,DistrictId,Address,Grade,Phone,Level,MainImage,CheckinStart,CheckinEnd,CheckoutStart,CheckoutEnd,AddBedFee,BreakfastPrice,HotelTypeId,HotelFacilities,Email")] Hotel hotel, int[] selectedCategories,HttpPostedFileBase file1)
+        public ActionResult Create([Bind(Include = "Id,Name,DistrictId,Address,Grade,Phone,Level,MainImage,CheckinStart,CheckinEnd,CheckoutStart,CheckoutEnd,AddBedFee,BreakfastPrice,HotelTypeId,HotelFacilities,Email")] Hotel hotel, int[] SelectedCategories, HttpPostedFileBase file1)
         {
             if (ModelState.IsValid)
             {
                 // 序列化成 JSON 格式
-                string json = JsonConvert.SerializeObject(new { FacilityIds = hotel.SelectedCategoryIds });
+                //string json = JsonConvert.SerializeObject(new { FacilityIds = hotel.SelectedCategoryIds });
+                // 序列化成 JSON 格式
+                var facilitiesJson = JsonConvert.SerializeObject(new { FacilityIds = SelectedCategories });
 
                 //上傳圖片檔案
                 string path = Server.MapPath("/Uploads");
-                string newFileName = new UploadFileHelper().UploadFile(file1,path);
-                hotel.MainImage = newFileName; 
+                string newFileName = new UploadFileHelper().UploadFile(file1, path);
+                hotel.MainImage = newFileName;
 
                 // 指定給 HotelFacilities 欄位
-                hotel.HotelFacilities = json;
+                //hotel.HotelFacilities = JsonConvert.SerializeObject(new { FacilityIds = new int[] { 1, 2, 9, 11 } });
+                hotel.HotelFacilities = facilitiesJson;
                 db.Hotels.Add(hotel);
                 db.SaveChanges();
                 Session["HotelId"] = hotel.Id;
@@ -142,6 +146,7 @@ namespace Team1.Controllers
                 }
             }
             detail += "</ul>";
+            hotel.MainImage = "../" + hotel.MainImage;
 
             // 將設施細節存儲在 ViewBag 中，以便在視圖中顯示
             ViewBag.FacilityDetails = detail;
@@ -168,6 +173,51 @@ namespace Team1.Controllers
                 .ToList();
 
             return Json(facilities, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Hotel hotel = db.Hotels.Find(id);
+            if (hotel == null)
+            {
+                return HttpNotFound();
+            }
+
+            // 解析 JSON 字符串以获取 FacilityIds
+            var facilitiesData = JsonConvert.DeserializeObject<dynamic>(hotel.HotelFacilities);
+            int[] facilityIds = facilitiesData.FacilityIds.ToObject<int[]>();
+
+            // 获取所有可能的设施，以便在视图中显示
+            var allFacilities = db.HotelCategories.ToList();
+
+            // 将数据发送到视图
+            ViewBag.SelectedFacilityIds = new HashSet<int>(facilityIds);
+            ViewBag.AllFacilities = allFacilities;
+            ViewBag.DistrictId = new SelectList(db.Districts, "Id", "Name", hotel.DistrictId);
+            ViewBag.HotelTypeId = new SelectList(db.HotelTypes, "Id", "Name", hotel.HotelTypeId);
+            return View(hotel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,Name,DistrictId,Address,Grade,Phone,Level,MainImage,CheckinStart,CheckinEnd,CheckoutStart,CheckoutEnd,AddBedFee,BreakfastPrice,HotelTypeId,HotelFacilities,Email")] Hotel hotel, int[] selectedFacilityIds)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(hotel).State = EntityState.Modified;
+                // 更新 HotelFacilities 字段
+                var jsonFacilities = JsonConvert.SerializeObject(new { FacilityIds = selectedFacilityIds });
+                hotel.HotelFacilities = jsonFacilities;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.DistrictId = new SelectList(db.Districts, "Id", "Name", hotel.DistrictId);
+            ViewBag.HotelTypeId = new SelectList(db.HotelTypes, "Id", "Name", hotel.HotelTypeId);
+            return View(hotel);
         }
     }
 }
