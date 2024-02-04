@@ -88,7 +88,7 @@ namespace Team1.Controllers
                 db.Hotels.Add(hotel);
                 db.SaveChanges();
                 Session["HotelId"] = hotel.Id;
-                return RedirectToAction("CreateRoom");
+                return RedirectToAction("index");
             }
 
             ViewBag.DistrictId = new SelectList(db.Districts, "Id", "Name", hotel.DistrictId);
