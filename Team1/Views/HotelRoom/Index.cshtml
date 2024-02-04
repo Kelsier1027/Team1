@@ -7,7 +7,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", new { id = ViewBag.hotelId })
 </p>
 <table class="table">
     <tr>
@@ -20,9 +20,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Size)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RoomFacilities)
-        </th>
+        @*<th>
+                @Html.HiddenFor(model => model.RoomFacilities)
+            </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Capacity)
         </th>
@@ -47,47 +47,50 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Hotel.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Size)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RoomFacilities)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Capacity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BedCapacity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MainImage)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.WeekdayPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.WeekendPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AddTimeFee)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Count)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hotel.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Size)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.RoomFacilities)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Capacity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BedCapacity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MainImage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WeekdayPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WeekendPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AddTimeFee)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Count)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
 </table>
+<div>
+    @Html.ActionLink("Back to List", "Index", "Hotel")
+</div>

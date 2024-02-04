@@ -15,8 +15,44 @@ namespace Team1.Controllers
         {
             // 使用 LINQ 查询来找出所有匹配 hotelId 的 HotelRooms
             var hotelRooms = db.HotelRooms.Where(h => h.HotelId == id).ToList();
+            ViewBag.hotelId = id;
 
             return View(hotelRooms);
+        }
+
+        // GET: HotelRooms/Create
+        public ActionResult Create(int? id)
+        {
+            if (id.HasValue)
+            {
+                ViewBag.HotelId = new SelectList(db.Hotels, "Id", "Name", id.HasValue ? id.Value : -1);
+                ViewBag.SelectedHotelId = id.HasValue ? id.Value : -1; // 确保有默认值或合理的备选值
+                ViewBag.SelectedHotelId = id; // 用于在视图中设置隐藏字段的值
+            }
+            else
+            {
+                ViewBag.HotelId = new SelectList(db.Hotels, "Id", "Name");
+            }
+            return View();
+        }
+
+        // POST: HotelRooms/Create
+        // 若要避免過量張貼攻擊，請啟用您要繫結的特定屬性。
+        // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,Name,HotelId,Size,RoomFacilities,Capacity,BedCapacity,MainImage,WeekdayPrice,WeekendPrice,AddTimeFee,Count")] HotelRoom hotelRoom)
+        {
+            if (ModelState.IsValid)
+            {
+                hotelRoom.RoomFacilities = "1"; //沒見到資料表 先都預設為1 之後再看是否使用
+                db.HotelRooms.Add(hotelRoom);
+                db.SaveChanges();
+                return RedirectToAction("Index","Hotel");
+            }
+
+            ViewBag.HotelId = new SelectList(db.Hotels, "Id", "Name", hotelRoom.HotelId);
+            return View(hotelRoom);
         }
     }
 }
