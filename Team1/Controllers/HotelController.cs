@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -22,10 +23,26 @@ namespace Team1.Controllers
     {
         private AppDbContext db = new AppDbContext();
         // GET: Hotel
-        public ActionResult Index()
+        public ActionResult Index(string searchString, string district, decimal? minPrice, decimal? maxPrice)
         {
             var data = db.Hotels.ToList();
             var hotelCategories = db.HotelCategories.ToList();
+
+            var hotels = from m in db.Hotels
+                         select m;
+
+            // 按酒店名称搜索
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                hotels = hotels.Where(s => s.Name.Contains(searchString));
+            }
+
+            // 按地区搜索
+            if (!String.IsNullOrEmpty(district))
+            {
+                hotels = hotels.Where(s => s.District.Name.Contains(district));
+            }
+
 
             foreach (var singleData in data)
             {
@@ -52,7 +69,7 @@ namespace Team1.Controllers
                 singleData.HotelFacilities = detail;
             }
 
-            return View(data);
+            return View(hotels.ToList());
         }
 
         // GET: Hotel/Create

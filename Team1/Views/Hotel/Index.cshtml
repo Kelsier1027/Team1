@@ -10,6 +10,17 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm("Index", "Hotel", FormMethod.Get))
+{
+    <p>
+        Name: @Html.TextBox("searchString")
+        District: @Html.TextBox("district")
+        <input type="submit" value="Search" />
+    </p>
+}
+
+
 <table class="table table-striped table-hover">
     <tr>
         <th>

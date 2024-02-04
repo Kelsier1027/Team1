@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -90,7 +91,17 @@ namespace Team1.Controllers
             // 使用hotelId作为参数重定向到Index视图
             return RedirectToAction("Index", new { id = hotelId });
         }
-
+        public ActionResult Edit([Bind(Include = "Id,Name,HotelId,Size,RoomFacilities,Capacity,BedCapacity,MainImage,WeekdayPrice,WeekendPrice,AddTimeFee,Count")] HotelRoom hotelRoom)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(hotelRoom).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.HotelId = new SelectList(db.Hotels, "Id", "Name", hotelRoom.HotelId);
+            return View(hotelRoom);
+        }
 
     }
 }
