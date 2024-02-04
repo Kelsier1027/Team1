@@ -7,7 +7,7 @@
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "HotelRoom", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
@@ -20,7 +20,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } } })
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -41,13 +41,13 @@
             </div>
         </div>
 
-        <div class="form-group">
+        @*@<div class="form-group">
             @Html.LabelFor(model => model.RoomFacilities, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.RoomFacilities, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.RoomFacilities, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Capacity, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -68,7 +68,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.MainImage, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.MainImage, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.HiddenFor(model => model.MainImage, new { htmlAttributes = new { @class = "form-control" } })
+                <input class="form-control" type="file" name="file1" id="file2">
                 @Html.ValidationMessageFor(model => model.MainImage, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -114,7 +115,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", new { id = ViewBag.SelectedHotelId }, null)
 </div>
 
 @section Scripts {

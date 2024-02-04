@@ -91,13 +91,45 @@ namespace Team1.Controllers
             // 使用hotelId作为参数重定向到Index视图
             return RedirectToAction("Index", new { id = hotelId });
         }
-        public ActionResult Edit([Bind(Include = "Id,Name,HotelId,Size,RoomFacilities,Capacity,BedCapacity,MainImage,WeekdayPrice,WeekendPrice,AddTimeFee,Count")] HotelRoom hotelRoom)
+
+        // GET: HotelRooms/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            HotelRoom hotelRoom = db.HotelRooms.Find(id);
+            if (hotelRoom == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.HotelId = new SelectList(db.Hotels, "Id", "Name", hotelRoom.HotelId);
+            ViewBag.SelectedHotelId = id.HasValue ? id.Value : -1; // 确保有默认值或合理的备选值
+            ViewBag.SelectedHotelId = id; // 用于在视图中设置隐藏字段的值
+            return View(hotelRoom);
+        }
+
+        // POST: HotelRooms/Edit/5
+        // 若要避免過量張貼攻擊，請啟用您要繫結的特定屬性。
+        // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,Name,HotelId,Size,RoomFacilities,Capacity,BedCapacity,MainImage,WeekdayPrice,WeekendPrice,AddTimeFee,Count")] HotelRoom hotelRoom, HttpPostedFileBase file1)
         {
             if (ModelState.IsValid)
             {
+                if (file1 != null && file1.ContentLength > 0)
+                {
+                    string path = Server.MapPath("/Uploads");
+                    string newFileName = new UploadFileHelper().UploadFile(file1, path);
+                    // 更新Hotel对象的MainImage属性
+                    hotelRoom.MainImage = "../" + newFileName;
+                }
+                hotelRoom.RoomFacilities = "1"; //忘記建資料表 先預設
                 db.Entry(hotelRoom).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = hotelRoom.HotelId });
             }
             ViewBag.HotelId = new SelectList(db.Hotels, "Id", "Name", hotelRoom.HotelId);
             return View(hotelRoom);
